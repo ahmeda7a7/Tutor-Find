@@ -12,7 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,12 +27,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     MaterialEditText username,email,password;
     Button btn_register;
+    Spinner userType;
+
+    private String userTypeValue;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -48,6 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btn_register = findViewById(R.id.btn_register);
+        userType = findViewById(R.id.userType);
+
+        setUserTypeSpinner();
 
         auth = FirebaseAuth.getInstance();
 
@@ -62,9 +73,44 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }else if(txt_password.length()<6){
                     Toast.makeText(RegisterActivity.this,"Password is too small",Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(userTypeValue)){
+                    Toast.makeText(RegisterActivity.this,"Please select your user type", Toast.LENGTH_SHORT).show();
                 }else{
                     register(txt_username,txt_email,txt_password);
                 }
+            }
+        });
+    }
+
+    private void setUserTypeSpinner() {
+        List<String> categories = new ArrayList<>();
+        categories.add(0,"User type");
+        categories.add("Student");
+        categories.add("Tutor");
+
+        ArrayAdapter<String> dataAdapter;
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        userType.setAdapter(dataAdapter);
+
+        userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(parent.getItemAtPosition(position).equals("User type"))
+                {
+                    userTypeValue = ("");
+                }
+                else
+                {
+                    String item = parent.getItemAtPosition(position).toString();
+                    userTypeValue = item;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -85,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("id",userid);
                     hashMap.put("username",username);
                     hashMap.put("email", email);
+                    hashMap.put("userType", userTypeValue);
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
