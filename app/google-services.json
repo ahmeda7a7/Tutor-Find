@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "466006164090",
+    "firebase_url": "https://tutor-find-cb929.firebaseio.com",
+    "project_id": "tutor-find-cb929",
+    "storage_bucket": "tutor-find-cb929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466006164090:android:af4182bfaedabac7e871c3",
+        "android_client_info": {
+          "package_name": "com.example.tutor_find"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466006164090-5kn73rjsmilsf0mgg2hfngl4ci33b98u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tutor_find",
+            "certificate_hash": "38a63840ea6c8a800f979ecb0830b2d50b361254"
+          }
+        },
+        {
+          "client_id": "466006164090-8nv5gg6ea2h0bqi4r3g19jstakclvvrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYFoM2o_yZ2eauP-bnndL-YKSArv-25us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466006164090-8nv5gg6ea2h0bqi4r3g19jstakclvvrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
