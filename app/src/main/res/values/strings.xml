@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Tutor-Find</string>
+
+    <string-array name="subjects">
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>Math</item>
+        <item>Higher Math</item>
+        <item>English</item>
+        <item>Bangla</item>
+        <item>Religion</item>
+        <item>Global Studies</item>
+        <item>All Subjects</item>
+    </string-array>
 </resources>

@@ -47,8 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -81,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void setUserTypeSpinner() {
         List<String> categories = new ArrayList<>();
@@ -115,12 +114,14 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+
     private void register(final String username, final String email, String password){
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     assert firebaseUser != null;
                     String userid = firebaseUser.getUid();
