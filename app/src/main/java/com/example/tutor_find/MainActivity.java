@@ -2,15 +2,17 @@ package com.example.tutor_find;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
+import com.example.tutor_find.Adapter.PostAdapter;
+import com.example.tutor_find.Model.Post;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView postList;
+    PostAdapter adapter;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -36,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
+
         userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid());
 
         userReference.addValueEventListener(new ValueEventListener() {
@@ -51,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        postList = findViewById(R.id.postList);
+        postList.setHasFixedSize(true);
+        postList.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(databaseReference, Post.class).build();
+
+        adapter = new PostAdapter(options);
+        adapter.startListening();
+
+        postList.setAdapter(adapter);
     }
 
     @Override

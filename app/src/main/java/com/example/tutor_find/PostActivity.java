@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -41,7 +42,7 @@ public class PostActivity extends AppCompatActivity {
     private String[] listItems;
     private boolean[] checkedItems;
     private ArrayList<Integer> userItems = new ArrayList<>();
-    private List<String> subjectItems;
+    private String subjectItems;
 
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
@@ -50,6 +51,8 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        //getActionBar().setTitle("Post Activity");
 
         group = findViewById(R.id.group);
         curriculum = findViewById(R.id.curriculum);
@@ -67,7 +70,6 @@ public class PostActivity extends AppCompatActivity {
         setCurriculumSpinner();
         setStudyClassSpinner();
 
-        subjectItems = new ArrayList<>();
         listItems = getResources().getStringArray(R.array.subjects);
         checkedItems = new boolean[listItems.length];
 
@@ -100,19 +102,14 @@ public class PostActivity extends AppCompatActivity {
                 listBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        String item = "";
-//                        for(int i=0; i < userItems.size(); i++)
-//                        {
-//                            item = item +listItems[userItems.get(i)];
-//                            if(i != userItems.size() - 1)
-//                            {
-//                                item = item + ", ";
-//                            }
-//                        }
 
                         for(int i=0; i < userItems.size(); i++)
                         {
-                            subjectItems.add(listItems[userItems.get(i)]);
+                            subjectItems = subjectItems + listItems[userItems.get(i)];
+                            if(i != userItems.size() - 1)
+                            {
+                                subjectItems = subjectItems + ", ";
+                            }
                         }
                     }
                 });
@@ -152,6 +149,7 @@ public class PostActivity extends AppCompatActivity {
 
         String salaryText = salary.getText().toString().trim();
         String addressText = address.getText().toString().trim();
+        String descriptionText = description.getText().toString().trim();
 
         if(TextUtils.isEmpty(groupTypeValue))
         {
@@ -165,7 +163,7 @@ public class PostActivity extends AppCompatActivity {
         {
             Toast.makeText(PostActivity.this, "Select your class", Toast.LENGTH_SHORT).show();
         }
-        else if(subjectItems.isEmpty())
+        else if(TextUtils.isEmpty(subjectItems))
         {
             Toast.makeText(PostActivity.this, "Select your subject", Toast.LENGTH_SHORT).show();
         }
@@ -188,7 +186,13 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("studyClass").setValue(studyClassTypeValue);
             newPost.child("subjectList").setValue(subjectItems);
             newPost.child("salary").setValue(salaryText);
+            newPost.child("description").setValue(descriptionText);
             newPost.child("address").setValue(addressText);
+
+            Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(PostActivity.this, MainActivity.class));
+            finish();
         }
     }
 
