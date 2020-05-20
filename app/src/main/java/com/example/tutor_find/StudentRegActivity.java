@@ -70,7 +70,7 @@ public class StudentRegActivity extends AppCompatActivity {
                     Toast.makeText(StudentRegActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6) {
                     Toast.makeText(StudentRegActivity.this, "Password is too small", Toast.LENGTH_SHORT).show();
-                } else if (txt_ContactNo.length() < 11) {
+                } else if (txt_ContactNo.length() == 11) {
                     Toast.makeText(StudentRegActivity.this, "Please enter valid contact number", Toast.LENGTH_SHORT).show();
                 } else {
                     register(txt_username, txt_email, txt_password, txt_ContactNo, txt_FullName);

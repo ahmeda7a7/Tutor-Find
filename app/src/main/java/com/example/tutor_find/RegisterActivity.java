@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button btn_tutor, btn_student;
 
-    private String userTypeValue;
+    //private String userTypeValue;
 
 
     @Override
