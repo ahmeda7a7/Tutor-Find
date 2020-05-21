@@ -45,8 +45,8 @@ public class TeacherRegActivity extends AppCompatActivity {
 
     private String[] listItems;
     private boolean[] checkedItems;
-    private ArrayList<Integer> userArea = new ArrayList<>();
-    private String Area;
+//    private ArrayList<Integer> userArea = new ArrayList<>();
+    private String Area = "";
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -82,17 +82,17 @@ public class TeacherRegActivity extends AppCompatActivity {
                 listBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if(isChecked)
-                        {
-                            if(!userArea.contains(position))
-                            {
-                                userArea.add(position);
-                            }
-                            else if(userArea.contains(position))
-                            {
-                                userArea.remove(position);
-                            }
-                        }
+//                        if(isChecked)
+//                        {
+//                            if(!userArea.contains(position))
+//                            {
+//                                userArea.add(position);
+//                            }
+//                            else if(userArea.contains(position))
+//                            {
+//                                userArea.remove(position);
+//                            }
+//                        }
                     }
                 });
 
@@ -102,12 +102,24 @@ public class TeacherRegActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        for(int i=0; i < userArea.size(); i++)
+//                        for(int i=0; i < userArea.size(); i++)
+//                        {
+//                            Area = Area + listItems[userArea.get(i)];
+//                            if(i != userArea.size() - 1)
+//                            {
+//                                Area = Area + ", ";
+//                            }
+//                        }
+
+                        for(int i=0; i < checkedItems.length; i++)
                         {
-                            Area = Area + listItems[userArea.get(i)];
-                            if(i != userArea.size() - 1)
+                            if(checkedItems[i])
                             {
-                                Area = Area + ", ";
+                                if(!Area.equals(""))
+                                {
+                                    Area = Area + ", ";
+                                }
+                                Area = Area + listItems[i];
                             }
                         }
                     }
@@ -126,7 +138,7 @@ public class TeacherRegActivity extends AppCompatActivity {
                         for (int i = 0; i < checkedItems.length; i++)
                         {
                             checkedItems[i] = false;
-                            userArea.clear();
+                            Area = "";
                         }
                     }
                 });
