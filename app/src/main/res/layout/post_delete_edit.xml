@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postGroup"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postCurriculum"
+            android:layout_below="@+id/postGroup"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postStudyClass"
+            android:layout_below="@+id/postCurriculum"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postSubjectList"
+            android:layout_below="@+id/postStudyClass"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postSalary"
+            android:layout_below="@+id/postSubjectList"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postDescription"
+            android:layout_below="@+id/postSalary"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postAddress"
+            android:layout_below="@+id/postDescription"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteButton"
+            android:layout_below="@+id/postAddress"
+            android:layout_toLeftOf="@+id/editButton"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="end"
+            android:padding="15dp"
+            android:text="Delete"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editButton"
+            android:layout_below="@id/postAddress"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:text="Edit"
+            android:textSize="18dp"
+            />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
