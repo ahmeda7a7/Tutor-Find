@@ -39,7 +39,7 @@ import org.w3c.dom.Text;
 
 public class TeacherRegActivity extends AppCompatActivity {
 
-    MaterialEditText username,email,password,FullName,ContactNo;
+    MaterialEditText email,password,FullName,ContactNo;
     Button btn_register;
     Button btn_area_pref;
 
@@ -59,7 +59,7 @@ public class TeacherRegActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Tutor Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        username = findViewById(R.id.username);
+
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btn_register = findViewById(R.id.btn_register);
@@ -151,13 +151,12 @@ public class TeacherRegActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_username = username.getText().toString();
-                String txt_email = email.getText().toString();
+                                String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 String txt_ContactNo = ContactNo.getText().toString();
                 String txt_FullName = FullName.getText().toString();
 
-                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_FullName)) {
+                if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_FullName)) {
                     Toast.makeText(TeacherRegActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6) {
                     Toast.makeText(TeacherRegActivity.this, "Password is too small", Toast.LENGTH_SHORT).show();
@@ -167,7 +166,7 @@ public class TeacherRegActivity extends AppCompatActivity {
                     Toast.makeText(TeacherRegActivity.this, "Select your preferred area", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    register(txt_username, txt_email, txt_password, txt_ContactNo, txt_FullName, Area);
+                    register(txt_email, txt_password, txt_ContactNo, txt_FullName, Area);
                 }
             }
         });
@@ -175,7 +174,7 @@ public class TeacherRegActivity extends AppCompatActivity {
 
 
 
-    private void register(final String username, final String email, String password, final String contactno, final String fullname, final String prefArea){
+    private void register(final String email, String password, final String contactno, final String fullname, final String prefArea){
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -190,7 +189,6 @@ public class TeacherRegActivity extends AppCompatActivity {
 
                     HashMap<String , String> hashMap = new HashMap<>();
                     hashMap.put("id",userid);
-                    hashMap.put("username",username);
                     hashMap.put("email", email);
                     hashMap.put("Contact No", contactno);
                     hashMap.put("Full Name", fullname);

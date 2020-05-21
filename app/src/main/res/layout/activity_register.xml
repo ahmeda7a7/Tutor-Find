@@ -18,8 +18,7 @@
         android:layout_height="wrap_content"
         android:text="Choose User Type"
         android:id="@+id/text_create_new_account"
-        android:layout_marginTop="28sp"
-        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:textSize="28sp"
         android:textStyle="bold"/>

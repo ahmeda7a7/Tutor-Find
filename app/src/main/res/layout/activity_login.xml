@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/toolbar"
         android:padding="280dp"
         android:layout_height="wrap_content"/>
 
@@ -19,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/text_login_account"
-        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:textSize="28sp"
         android:textStyle="bold"/>

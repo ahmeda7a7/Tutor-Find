@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:text="Create Tutor Account"
                 android:id="@+id/text_create_new_account"
-                android:layout_below="@+id/toolbar"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
                 android:textSize="22sp"
@@ -32,18 +32,9 @@
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/username"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/text_create_new_account"
-                app:met_floatingLabel="normal"
-                android:hint="Username"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/email"
                 android:inputType="textEmailAddress"
-                android:layout_below="@+id/username"
+                android:layout_below="@+id/text_create_new_account"
                 android:layout_marginTop="10dp"
                 app:met_floatingLabel="normal"
                 android:hint="Email"/>
