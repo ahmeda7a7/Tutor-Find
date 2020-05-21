@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.tutor_find.Model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +42,6 @@ public class PostActivity extends AppCompatActivity {
 
     private String[] listItems;
     private boolean[] checkedItems;
-    private ArrayList<Integer> userItems = new ArrayList<>();
     private String subjectItems;
 
     private DatabaseReference databaseReference;
@@ -77,23 +77,15 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                subjectItems = "";
+
                 final AlertDialog.Builder listBuilder = new AlertDialog.Builder(PostActivity.this);
                 listBuilder.setTitle("Choose Subjects");
 
                 listBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if(isChecked)
-                        {
-                            if(!userItems.contains(position))
-                            {
-                                userItems.add(position);
-                            }
-                            else if(userItems.contains(position))
-                            {
-                                userItems.remove(position);
-                            }
-                        }
+
                     }
                 });
 
@@ -103,14 +95,19 @@ public class PostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        for(int i=0; i < userItems.size(); i++)
+                        for(int i=0; i < checkedItems.length; i++)
                         {
-                            subjectItems = subjectItems + listItems[userItems.get(i)];
-                            if(i != userItems.size() - 1)
+                            if(checkedItems[i])
                             {
-                                subjectItems = subjectItems + ", ";
+                                if(!subjectItems.equals(""))
+                                {
+                                    subjectItems = subjectItems + ",";
+                                }
+                                subjectItems = subjectItems + listItems[i];
                             }
                         }
+
+                        Toast.makeText(PostActivity.this, subjectItems, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -127,7 +124,7 @@ public class PostActivity extends AppCompatActivity {
                         for (int i = 0; i < checkedItems.length; i++)
                         {
                             checkedItems[i] = false;
-                            userItems.clear();
+                            subjectItems = "";
                         }
                     }
                 });
@@ -180,6 +177,8 @@ public class PostActivity extends AppCompatActivity {
             DatabaseReference newPost = databaseReference.push();
             String userId = firebaseUser.getUid();
 
+            String postId = newPost.getKey();
+
             newPost.child("userId").setValue(userId);
             newPost.child("group").setValue(groupTypeValue);
             newPost.child("curriculum").setValue(curriculumTypeValue);
@@ -188,6 +187,7 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("salary").setValue(salaryText);
             newPost.child("description").setValue(descriptionText);
             newPost.child("address").setValue(addressText);
+            newPost.child("postId").setValue(postId);
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
 

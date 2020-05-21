@@ -1,9 +1,14 @@
 package com.example.tutor_find;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.tutor_find.Adapter.PostAdapter;
+import com.example.tutor_find.Fragments.AllPostActivity;
 import com.example.tutor_find.Model.Post;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,35 +28,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView postList;
-    PostAdapter adapter;
-
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private DatabaseReference databaseReference;
-    private DatabaseReference userReference;
+    DatabaseReference userReference;
+    FirebaseUser firebaseUser;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle("User Profile");
+        getSupportActionBar().setTitle("");
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
-
-        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid());
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("username").getValue().toString();
-                getSupportActionBar().setTitle(name);
+                String userName = dataSnapshot.child("username").getValue().toString();
+                getSupportActionBar().setTitle(userName);
             }
 
             @Override
@@ -58,16 +60,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        postList = findViewById(R.id.postList);
-        postList.setHasFixedSize(true);
-        postList.setLayoutManager(new LinearLayoutManager(this));
+        TabLayout tabLayout = findViewById(R.id.userTab);
 
-        FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(databaseReference, Post.class).build();
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
-        adapter = new PostAdapter(options);
-        adapter.startListening();
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new AllPostActivity(), "All Posts");
 
-        postList.setAdapter(adapter);
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private ArrayList<Fragment> fragments;
+        private ArrayList<String> titles;
+
+        public ViewPagerAdapter(@NonNull FragmentManager fm) {
+            super(fm);
+            this.fragments = new ArrayList<>();
+            this.titles = new ArrayList<>();
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        public void addFragment(Fragment fragment, String title){
+            fragments.add(fragment);
+            titles.add(title);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
     }
 
     @Override

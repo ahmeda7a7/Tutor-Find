@@ -11,8 +11,9 @@ public class Post {
     String subjectList;
     String description;
     String userId;
+    String postId;
 
-    public Post(String address, String curriculum, String group, String salary, String studyClass, String subjectList, String description, String userId) {
+    public Post(String address, String curriculum, String group, String salary, String studyClass, String subjectList, String description, String userId, String postId) {
         this.address = address;
         this.curriculum = curriculum;
         this.group = group;
@@ -21,6 +22,7 @@ public class Post {
         this.subjectList = subjectList;
         this.description = description;
         this.userId = userId;
+        this.postId = postId;
     }
 
     public Post() {
@@ -88,5 +90,13 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }
