@@ -14,7 +14,25 @@
         <item>All Subjects</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="areas">
+        <item>Airport</item>
+        <item>Badda</item>
+        <item>Banani</item>
+        <item>Bashundhara R/A</item>
+        <item>Dhaka Cantonment</item>
+        <item>Dhanmondi</item>
+        <item>Gulshan</item>
+        <item>Khilgaon</item>
+        <item>Mirpur</item>
+        <item>Mohakhali</item>
+        <item>Mohammadpur</item>
+        <item>Motijheel</item>
+        <item>New Market</item>
+        <item>Old Dhaka</item>
+        <item>Pallabi</item>
+        <item>Rampura</item>
+        <item>Shahbagh</item>
+        <item>Uttara</item>
+    </string-array>
 
 </resources>

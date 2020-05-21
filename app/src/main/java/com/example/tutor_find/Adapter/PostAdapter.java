@@ -19,7 +19,6 @@ import com.example.tutor_find.StartActivity;
 import com.example.tutor_find.StudentRegActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
 import org.w3c.dom.Text;
 
 public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostViewHolder> {
