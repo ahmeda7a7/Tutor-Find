@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,28 +50,38 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.deleteButton.getContext());
 
-//                AlertDialog.Builder builder = new AlertDialog.Builder(holder.deleteButton.getContext());
-//
-//                builder.setTitle("Delete this post");
-//                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        String postId = model.getPostId();
-//                        deletePost(postId);
-//                    }
-//                });
+                builder.setTitle("Delete this post");
+
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String postId = model.getPostId();
+                        deletePost(postId);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
 
     }
 
-//    private void deletePost(String postId) {
-//
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-//        databaseReference.removeValue();
-//    }
+    private void deletePost(String postId) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        databaseReference.removeValue();
+    }
 
     @NonNull
     @Override
