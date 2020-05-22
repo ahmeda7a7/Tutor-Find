@@ -92,6 +92,15 @@ public class ConfirmActivity extends AppCompatActivity {
                      area = dataSnapshot.child("area").getValue().toString();
                      address = dataSnapshot.child("address").getValue().toString();
                      userId = dataSnapshot.child("userId").getValue().toString();
+
+                    postGroup.setText("Group: " + group);
+                    postCurriculum.setText("Curriculum: " + curriculum);
+                    postStudyClass.setText("Class: " + studyClass);
+                    postSubjectList.setText("Subjects: " + subjectList);
+                    postSalary.setText("Salary: " + salary);
+                    postDescription.setText("Description: " + description);
+                    postArea.setText("Area: " + area);
+                    postAddress.setText("Address: " + address);
             }
 
             @Override
@@ -100,15 +109,6 @@ public class ConfirmActivity extends AppCompatActivity {
             }
         });
 
-
-        postGroup.setText("Group: " + group);
-        postCurriculum.setText("Curriculum: " + curriculum);
-        postStudyClass.setText("Class: " + studyClass);
-        postSubjectList.setText("Subjects: " + subjectList);
-        postSalary.setText("Salary: " + salary);
-        postDescription.setText("Description: " + description);
-        postArea.setText("Area: " + area);
-        postAddress.setText("Address: " + address);
 
 //        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        userReference = FirebaseDatabase.getInstance().getReference().child("Users");
