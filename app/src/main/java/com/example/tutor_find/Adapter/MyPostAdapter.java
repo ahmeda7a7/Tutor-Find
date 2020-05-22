@@ -1,5 +1,7 @@
 package com.example.tutor_find.Adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import com.example.tutor_find.Model.Post;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.MyPostViewHolder> {
 
@@ -22,7 +26,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MyPostViewHolder holder, int position, @NonNull Post model) {
+    protected void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position, @NonNull final Post model) {
 
         holder.postGroup.setText("Group: " + model.getGroup());
         holder.postCurriculum.setText("Curriculum: " + model.getCurriculum());
@@ -46,12 +50,27 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
             @Override
             public void onClick(View view) {
 
-
+//                AlertDialog.Builder builder = new AlertDialog.Builder(holder.deleteButton.getContext());
+//
+//                builder.setTitle("Delete this post");
+//                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String postId = model.getPostId();
+//                        deletePost(postId);
+//                    }
+//                });
             }
         });
 
 
     }
+
+//    private void deletePost(String postId) {
+//
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+//        databaseReference.removeValue();
+//    }
 
     @NonNull
     @Override

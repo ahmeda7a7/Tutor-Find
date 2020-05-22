@@ -14,9 +14,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.tutor_find.Adapter.PostAdapter;
 import com.example.tutor_find.Fragments.AllPostActivity;
+import com.example.tutor_find.Fragments.MyPostActivity;
 import com.example.tutor_find.Model.Post;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.tabs.TabLayout;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new AllPostActivity(), "All Posts");
+        viewPagerAdapter.addFragment(new MyPostActivity(), "My Posts");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
