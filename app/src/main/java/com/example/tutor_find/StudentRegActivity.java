@@ -45,8 +45,10 @@ public class StudentRegActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_reg);
 
-        getSupportActionBar().setTitle("Student Register");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Student Register");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().hide();
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);

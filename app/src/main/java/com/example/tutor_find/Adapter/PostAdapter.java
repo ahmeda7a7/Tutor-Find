@@ -36,6 +36,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
         holder.postSubjectList.setText("Subjects: " + model.getSubjectList());
         holder.postSalary.setText("Salary: " + model.getSalary());
         holder.postDescription.setText("Description: " + model.getDescription());
+        holder.postArea.setText("Area: " + model.getArea());
         holder.postAddress.setText("Address: " + model.getAddress());
 
         holder.applyButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
                 String subjectList = model.getSubjectList();
                 String salary = model.getSalary();
                 String description = model.getDescription();
+                String area = model.getArea();
                 String address = model.getAddress();
                 String userId = model.getUserId();
 
@@ -61,6 +63,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
                 intent.putExtra("subjectList", subjectList);
                 intent.putExtra("salary", salary);
                 intent.putExtra("description", description);
+                intent.putExtra("area", area);
                 intent.putExtra("address", address);
                 intent.putExtra("userId", userId);
                 intent.putExtra("postId", postId);
@@ -88,6 +91,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
         TextView postSubjectList;
         TextView postSalary;
         TextView postDescription;
+        TextView postArea;
         TextView postAddress;
         Button applyButton;
 
@@ -100,6 +104,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
             postSubjectList = itemView.findViewById(R.id.postSubjectList);
             postSalary = itemView.findViewById(R.id.postSalary);
             postDescription = itemView.findViewById(R.id.postDescription);
+            postArea = itemView.findViewById(R.id.postArea);
             postAddress = itemView.findViewById(R.id.postAddress);
             applyButton = itemView.findViewById(R.id.applyButton);
         }

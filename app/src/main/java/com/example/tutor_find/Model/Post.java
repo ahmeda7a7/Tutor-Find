@@ -12,8 +12,9 @@ public class Post {
     String description;
     String userId;
     String postId;
+    String area;
 
-    public Post(String address, String curriculum, String group, String salary, String studyClass, String subjectList, String description, String userId, String postId) {
+    public Post(String address, String curriculum, String group, String salary, String studyClass, String subjectList, String description, String userId, String postId, String area) {
         this.address = address;
         this.curriculum = curriculum;
         this.group = group;
@@ -23,6 +24,7 @@ public class Post {
         this.description = description;
         this.userId = userId;
         this.postId = postId;
+        this.area = area;
     }
 
     public Post() {
@@ -99,4 +101,8 @@ public class Post {
     public void setPostId(String postId) {
         this.postId = postId;
     }
+
+    public String getArea() {return  area; }
+
+    public void setArea(String area) { this.area = area; }
 }

@@ -47,8 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        getSupportActionBar().setTitle("User Selection");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("User Selection");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().hide();
 
         btn_tutor = findViewById(R.id.btn_tutor);
         btn_student = findViewById(R.id.btn_student);

@@ -20,6 +20,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportActionBar().hide();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 

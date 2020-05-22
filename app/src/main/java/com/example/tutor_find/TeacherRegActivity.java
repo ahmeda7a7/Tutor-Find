@@ -56,9 +56,10 @@ public class TeacherRegActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_reg);
 
-        getSupportActionBar().setTitle("Tutor Register");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Tutor Register");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().hide();
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);

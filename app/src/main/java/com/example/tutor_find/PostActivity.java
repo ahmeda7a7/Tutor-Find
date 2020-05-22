@@ -30,15 +30,23 @@ public class PostActivity extends AppCompatActivity {
     private Spinner group;
     private Spinner curriculum;
     private Spinner studyClass;
+    private Spinner area;
+
     private Button subjectListButton;
     private EditText salary;
     private EditText description;
     private EditText address;
     private Button submitButton;
 
+
+    private  String[] listAreas;
+    private boolean[] checkedAreas;
+    private String[] Areas;
+
     private String groupTypeValue;
     private String curriculumTypeValue;
     private String studyClassTypeValue;
+    private String areaTypeValue;
 
     private String[] listItems;
     private boolean[] checkedItems;
@@ -53,6 +61,7 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         //getActionBar().setTitle("Post Activity");
+        getSupportActionBar().hide();
 
         group = findViewById(R.id.group);
         curriculum = findViewById(R.id.curriculum);
@@ -62,6 +71,8 @@ public class PostActivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         address = findViewById(R.id.address);
         submitButton = findViewById(R.id.submitButton);
+        area = findViewById(R.id.area);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,9 +80,13 @@ public class PostActivity extends AppCompatActivity {
         setGroupSpinner();
         setCurriculumSpinner();
         setStudyClassSpinner();
+        setAreaSpinner();
 
         listItems = getResources().getStringArray(R.array.subjects);
         checkedItems = new boolean[listItems.length];
+
+
+
 
         subjectListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +157,7 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+
     private void startPosting() {
 
         String salaryText = salary.getText().toString().trim();
@@ -172,6 +188,10 @@ public class PostActivity extends AppCompatActivity {
         {
             Toast.makeText(PostActivity.this, "Provide your address", Toast.LENGTH_SHORT).show();
         }
+        else if(TextUtils.isEmpty(areaTypeValue))
+        {
+            Toast.makeText(PostActivity.this, "Select your area", Toast.LENGTH_SHORT).show();
+        }
         else
         {
             DatabaseReference newPost = databaseReference.push();
@@ -186,7 +206,8 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("subjectList").setValue(subjectItems);
             newPost.child("salary").setValue(salaryText);
             newPost.child("description").setValue(descriptionText);
-            newPost.child("address").setValue(addressText);
+            newPost.child("area").setValue(areaTypeValue);
+            newPost.child("detailed address").setValue(addressText);
             newPost.child("postId").setValue(postId);
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
@@ -194,6 +215,56 @@ public class PostActivity extends AppCompatActivity {
             startActivity(new Intent(PostActivity.this, MainActivity.class));
             finish();
         }
+    }
+
+    private void setAreaSpinner() {
+
+        List<String> categories = new ArrayList<>();
+        categories.add(0,"Area");
+        categories.add("Airport");
+        categories.add("Badda");
+        categories.add("Bashundhara R/A");
+        categories.add("Dhaka Cantonment");
+        categories.add("Dhanmondi");
+        categories.add("Gulshan");
+        categories.add("Khilgaon");
+        categories.add("Mirpur");
+        categories.add("Mohakhali");
+        categories.add("Mohammadpur");
+        categories.add("Motijheel");
+        categories.add("New Market");
+        categories.add("Old Dhaka");
+        categories.add("Pallabi");
+        categories.add("Rampura");
+        categories.add("Shahbagh");
+        categories.add("Uttara");
+
+        ArrayAdapter<String> dataAdapter;
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        area.setAdapter(dataAdapter);
+
+        area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(parent.getItemAtPosition(position).equals("Class"))
+                {
+                    areaTypeValue = ("");
+                }
+                else
+                {
+                    String item = parent.getItemAtPosition(position).toString();
+                    areaTypeValue = item;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     private void setStudyClassSpinner() {

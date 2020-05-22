@@ -25,7 +25,9 @@ public class ConfirmActivity extends AppCompatActivity {
     TextView postSubjectList;
     TextView postSalary;
     TextView postDescription;
+    TextView postArea;
     TextView postAddress;
+
 
     String group;
     String curriculum;
@@ -33,6 +35,7 @@ public class ConfirmActivity extends AppCompatActivity {
     String subjectList;
     String salary;
     String description;
+    String area;
     String address;
     String userId;
     String postId;
@@ -56,6 +59,7 @@ public class ConfirmActivity extends AppCompatActivity {
         postSubjectList = findViewById(R.id.postSubjectList);
         postSalary = findViewById(R.id.postSalary);
         postDescription = findViewById(R.id.postDescription);
+        postArea = findViewById(R.id.postArea);
         postAddress = findViewById(R.id.postAddress);
         confirmButton = findViewById(R.id.confirmButton);
 
@@ -65,6 +69,7 @@ public class ConfirmActivity extends AppCompatActivity {
         subjectList = getIntent().getExtras().getString("subjectList");
         salary = getIntent().getExtras().getString("salary");
         description = getIntent().getExtras().getString("description");
+        area = getIntent().getExtras().getString("area");
         address = getIntent().getExtras().getString("address");
         userId = getIntent().getExtras().getString("userId");
         postId = getIntent().getExtras().getString("postId");
@@ -75,6 +80,7 @@ public class ConfirmActivity extends AppCompatActivity {
         postSubjectList.setText(subjectList);
         postSalary.setText(salary);
         postDescription.setText(description);
+        postArea.setText(area);
         postAddress.setText(address);
 
 //        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
