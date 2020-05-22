@@ -67,15 +67,6 @@ public class ConfirmActivity extends AppCompatActivity {
         postAddress = findViewById(R.id.postAddress);
         confirmButton = findViewById(R.id.confirmButton);
 
-//        group = getIntent().getExtras().getString("group");
-//        curriculum = getIntent().getExtras().getString("curriculum");
-//        studyClass = getIntent().getExtras().getString("studyClass");
-//        subjectList = getIntent().getExtras().getString("subjectList");
-//        salary = getIntent().getExtras().getString("salary");
-//        description = getIntent().getExtras().getString("description");
-//        area = getIntent().getExtras().getString("area");
-//        address = getIntent().getExtras().getString("address");
-//        userId = getIntent().getExtras().getString("userId");
         postId = getIntent().getExtras().getString("postId");
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
@@ -83,6 +74,7 @@ public class ConfirmActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                      group  = dataSnapshot.child("group").getValue().toString();
                      curriculum =dataSnapshot.child("curriculum").getValue().toString();
                      studyClass = dataSnapshot.child("studyClass").getValue().toString();
