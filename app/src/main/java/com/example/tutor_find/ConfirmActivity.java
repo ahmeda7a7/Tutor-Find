@@ -1,5 +1,6 @@
 package com.example.tutor_find;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class ConfirmActivity extends AppCompatActivity {
@@ -63,27 +67,49 @@ public class ConfirmActivity extends AppCompatActivity {
         postAddress = findViewById(R.id.postAddress);
         confirmButton = findViewById(R.id.confirmButton);
 
-        group = getIntent().getExtras().getString("group");
-        curriculum = getIntent().getExtras().getString("curriculum");
-        studyClass = getIntent().getExtras().getString("studyClass");
-        subjectList = getIntent().getExtras().getString("subjectList");
-        salary = getIntent().getExtras().getString("salary");
-        description = getIntent().getExtras().getString("description");
-        area = getIntent().getExtras().getString("area");
-        address = getIntent().getExtras().getString("address");
-        userId = getIntent().getExtras().getString("userId");
+//        group = getIntent().getExtras().getString("group");
+//        curriculum = getIntent().getExtras().getString("curriculum");
+//        studyClass = getIntent().getExtras().getString("studyClass");
+//        subjectList = getIntent().getExtras().getString("subjectList");
+//        salary = getIntent().getExtras().getString("salary");
+//        description = getIntent().getExtras().getString("description");
+//        area = getIntent().getExtras().getString("area");
+//        address = getIntent().getExtras().getString("address");
+//        userId = getIntent().getExtras().getString("userId");
         postId = getIntent().getExtras().getString("postId");
 
-        postGroup.setText(group);
-        postCurriculum.setText(curriculum);
-        postStudyClass.setText(studyClass);
-        postSubjectList.setText(subjectList);
-        postSalary.setText(salary);
-        postDescription.setText(description);
-        postArea.setText(area);
-        postAddress.setText(address);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     group  = dataSnapshot.child("group").getValue().toString();
+                     curriculum =dataSnapshot.child("curriculum").getValue().toString();
+                     studyClass = dataSnapshot.child("studyClass").getValue().toString();
+                     subjectList = dataSnapshot.child("subjectList").getValue().toString();
+                     salary = dataSnapshot.child("salary").getValue().toString();
+                     description = dataSnapshot.child("description").getValue().toString();
+                     area = dataSnapshot.child("area").getValue().toString();
+                     address = dataSnapshot.child("address").getValue().toString();
+                     userId = dataSnapshot.child("userId").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        postGroup.setText("Group: " + group);
+        postCurriculum.setText("Curriculum: " + curriculum);
+        postStudyClass.setText("Class: " + studyClass);
+        postSubjectList.setText("Subjects: " + subjectList);
+        postSalary.setText("Salary: " + salary);
+        postDescription.setText("Description: " + description);
+        postArea.setText("Area: " + area);
+        postAddress.setText("Address: " + address);
+
 //        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        userReference = FirebaseDatabase.getInstance().getReference().child("Users");
 

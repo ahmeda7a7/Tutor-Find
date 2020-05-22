@@ -74,8 +74,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postAddress"
+            android:id="@+id/postArea"
             android:layout_below="@+id/postDescription"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postAddress"
+            android:layout_below="@+id/postArea"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"

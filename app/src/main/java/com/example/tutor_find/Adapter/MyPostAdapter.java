@@ -30,6 +30,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
         holder.postSubjectList.setText("Subjects: " + model.getSubjectList());
         holder.postSalary.setText("Salary: " + model.getSalary());
         holder.postDescription.setText("Description: " + model.getDescription());
+        holder.postArea.setText("Area: " + model.getArea());
         holder.postAddress.setText("Address: " + model.getAddress());
 
         holder.editButton.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +40,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
 
             }
         });
+
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
         TextView postSalary;
         TextView postDescription;
         TextView postAddress;
+        TextView postArea;
         Button deleteButton;
         Button editButton;
 
@@ -78,6 +81,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
             postSubjectList = itemView.findViewById(R.id.postSubjectList);
             postSalary = itemView.findViewById(R.id.postSalary);
             postDescription = itemView.findViewById(R.id.postDescription);
+            postArea = itemView.findViewById(R.id.postArea);
             postAddress = itemView.findViewById(R.id.postAddress);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);

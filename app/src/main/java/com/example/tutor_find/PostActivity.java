@@ -39,9 +39,6 @@ public class PostActivity extends AppCompatActivity {
     private Button submitButton;
 
 
-    private  String[] listAreas;
-    private boolean[] checkedAreas;
-    private String[] Areas;
 
     private String groupTypeValue;
     private String curriculumTypeValue;
@@ -207,7 +204,7 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("salary").setValue(salaryText);
             newPost.child("description").setValue(descriptionText);
             newPost.child("area").setValue(areaTypeValue);
-            newPost.child("detailed address").setValue(addressText);
+            newPost.child("address").setValue(addressText);
             newPost.child("postId").setValue(postId);
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
@@ -248,7 +245,7 @@ public class PostActivity extends AppCompatActivity {
         area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("Class"))
+                if(parent.getItemAtPosition(position).equals("Area"))
                 {
                     areaTypeValue = ("");
                 }

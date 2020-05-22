@@ -47,25 +47,25 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
 
                 String postId = model.getPostId();
 
-                String group = model.getGroup();
-                String curriculum = model.getCurriculum();
-                String studyClass = model.getStudyClass();
-                String subjectList = model.getSubjectList();
-                String salary = model.getSalary();
-                String description = model.getDescription();
-                String area = model.getArea();
-                String address = model.getAddress();
-                String userId = model.getUserId();
+//                String group = model.getGroup();
+//                String curriculum = model.getCurriculum();
+//                String studyClass = model.getStudyClass();
+//                String subjectList = model.getSubjectList();
+//                String salary = model.getSalary();
+//                String description = model.getDescription();
+//                String area = model.getArea();
+//                String address = model.getAddress();
+//                String userId = model.getUserId();
 
-                intent.putExtra("group", group);
-                intent.putExtra("curriculum", curriculum);
-                intent.putExtra("studyClass", studyClass);
-                intent.putExtra("subjectList", subjectList);
-                intent.putExtra("salary", salary);
-                intent.putExtra("description", description);
-                intent.putExtra("area", area);
-                intent.putExtra("address", address);
-                intent.putExtra("userId", userId);
+//                intent.putExtra("group", group);
+//                intent.putExtra("curriculum", curriculum);
+//                intent.putExtra("studyClass", studyClass);
+//                intent.putExtra("subjectList", subjectList);
+//                intent.putExtra("salary", salary);
+//                intent.putExtra("description", description);
+//                intent.putExtra("area", area);
+//                intent.putExtra("address", address);
+//                intent.putExtra("userId", userId);
                 intent.putExtra("postId", postId);
 
                 holder.applyButton.getContext().startActivity(intent);
