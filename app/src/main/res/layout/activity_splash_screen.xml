@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_width="300dp"
-        android:layout_height="270dp"
+        android:layout_height="300dp"
         app:srcCompat="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
