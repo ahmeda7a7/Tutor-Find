@@ -1,6 +1,5 @@
 package com.example.tutor_find.Adapter;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,18 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Context;
 import android.widget.Toast;
 
+//testing if commit possible and push
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tutor_find.ConfirmActivity;
+import com.example.tutor_find.Fragments.MyPostActivity;
 import com.example.tutor_find.Model.Post;
 import com.example.tutor_find.PostEditActivity;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.MyPostViewHolder> {
 
@@ -29,7 +32,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position, @NonNull final Post model) {
+    protected void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position, @NonNull Post model) {
 
         holder.postGroup.setText("Group: " + model.getGroup());
         holder.postCurriculum.setText("Curriculum: " + model.getCurriculum());
@@ -59,37 +62,37 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.deleteButton.getContext());
 
-                builder.setTitle("Delete this post");
+                final AlertDialog.Builder deleteConfirmation;
+                deleteConfirmation = new AlertDialog.Builder(holder.deleteButton.getContext());
+                deleteConfirmation.setTitle("Confirm delete");
+                deleteConfirmation.setMessage("Are you sure you want to delete this post?");
 
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                deleteConfirmation.setCancelable(false);
+
+                deleteConfirmation.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String postId = model.getPostId();
-                        deletePost(postId);
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(holder.deleteButton.getContext(), "Post Deleted", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                deleteConfirmation.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 });
 
-                AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog = deleteConfirmation.create();
                 alertDialog.show();
+
+
             }
         });
 
 
-    }
-
-    private void deletePost(String postId) {
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-        databaseReference.removeValue();
     }
 
     @NonNull
