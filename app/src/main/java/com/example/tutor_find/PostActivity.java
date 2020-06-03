@@ -57,8 +57,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        //getActionBar().setTitle("Post Activity");
-        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         group = findViewById(R.id.group);
         curriculum = findViewById(R.id.curriculum);
@@ -143,6 +142,11 @@ public class PostActivity extends AppCompatActivity {
 
                 AlertDialog alertDialog = listBuilder.create();
                 alertDialog.show();
+
+                if(!subjectItems.isEmpty())
+                {
+                    subjectListButton.setText(subjectItems);
+                }
             }
         });
 

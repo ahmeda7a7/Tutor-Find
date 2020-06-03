@@ -2,6 +2,7 @@ package com.example.tutor_find.Adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tutor_find.Model.Post;
+import com.example.tutor_find.PostEditActivity;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -42,6 +44,13 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(holder.editButton.getContext(), PostEditActivity.class);
+
+                String postId=model.getPostId();
+
+                intent.putExtra("postId", postId);
+
+                holder.editButton.getContext().startActivity(intent);
 
             }
         });
