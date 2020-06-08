@@ -29,6 +29,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
 
     DatabaseReference databaseReference;
     DatabaseReference userReference;
+    DatabaseReference otherUserReference;
 
     String postId;
     String userId;
@@ -96,10 +97,10 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                         userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("requests").child(postId);
 
                         databaseReference.removeValue();
-
                         databaseReference.child(userId).setValue(true);
 
                         userReference.setValue(true);
+
 
                     }
                 });

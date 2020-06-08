@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,10 +47,7 @@ public class StudentRegActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_reg);
 
-//        getSupportActionBar().setTitle("Student Register");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Register");
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -77,6 +76,24 @@ public class StudentRegActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(StudentRegActivity.this, RegisterActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

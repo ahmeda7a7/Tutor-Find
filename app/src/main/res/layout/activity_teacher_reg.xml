@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitebackground"
     tools:context=".TeacherRegActivity">
 
     <ScrollView
@@ -25,7 +26,6 @@
                 android:id="@+id/text_create_new_account"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
 
@@ -52,7 +52,7 @@
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/FullName"
+                android:id="@+id/name"
                 android:layout_below="@+id/password"
                 android:layout_marginTop="10dp"
                 app:met_floatingLabel="normal"
@@ -61,37 +61,65 @@
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ContactNo"
+                android:id="@+id/number"
+                android:inputType="number"
                 android:layout_below="@+id/FullName"
                 android:layout_marginTop="10dp"
                 app:met_floatingLabel="normal"
                 android:hint="ContactNo"/>
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/institution"
+                android:layout_below="@+id/FullName"
+                android:layout_marginTop="10dp"
+                app:met_floatingLabel="normal"
+                android:hint="Institution Name"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/department"
+                android:layout_below="@+id/FullName"
+                android:layout_marginTop="10dp"
+                app:met_floatingLabel="normal"
+                android:hint="Department"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/year"
+                android:inputType="number"
+                android:layout_below="@+id/FullName"
+                android:layout_marginTop="10dp"
+                app:met_floatingLabel="normal"
+                android:hint="Academic Year"/>
 
             <Button
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Preferred Area"
                 android:id="@+id/btn_area_pref"
                 android:layout_below="@+id/ContactNo"
                 android:layout_marginTop="20dp"
-                android:textSize="20sp"
-                android:background="@color/colorButtonSelect"
+                android:textSize="15sp"
+                android:background="#F44336"
                 android:textColor="@color/WhiteColor"
                 android:layout_gravity="center_horizontal"
                 />
 
             <Button
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Register"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:id="@+id/btn_register"
-                android:background="@color/colorButtonSelect"
-                android:layout_below="@+id/cb10"
-                android:layout_marginTop="10dp"
+                android:background="@drawable/button_round_edge"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
                 android:textColor="@color/WhiteColor"
                 />
 

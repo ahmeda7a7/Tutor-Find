@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,10 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-//        getSupportActionBar().setTitle("User Selection");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("User Selection");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        getSupportActionBar().hide();
 
         btn_tutor = findViewById(R.id.btn_tutor);
         btn_student = findViewById(R.id.btn_student);
@@ -79,53 +80,25 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(RegisterActivity.this, StartActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
 
-
-
-
-    /*private void setUserTypeSpinner() {
-        List<String> categories = new ArrayList<>();
-        categories.add(0,"User type");
-        categories.add("Student");
-        categories.add("Tutor");
-
-        ArrayAdapter<String> dataAdapter;
-        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        userType.setAdapter(dataAdapter);
-
-        userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("User type"))
-                {
-                    userTypeValue = ("");
-                }
-                else
-                {
-                    String item = parent.getItemAtPosition(position).toString();
-                    userTypeValue = item;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-       /* reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
 
 
