@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ConfirmActivity">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
+
 
         <TextView
             android:layout_width="match_parent"
@@ -28,6 +27,7 @@
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/postGroup"
             />
 
         <TextView
@@ -37,6 +37,7 @@
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/postCurriculum"
             />
 
         <TextView
@@ -46,56 +47,37 @@
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/postStudyClass"
             />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/postSalary"
+            android:id="@+id/postDecision"
             android:padding="15dp"
             android:textStyle="bold"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/postDescription"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/postArea"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/postAddress"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="15dp"
+            android:layout_centerHorizontal="true"
+            android:text="Decision"
+            android:layout_below="@+id/postSubjectList"
             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/confirmButton"
-            android:text="Apply"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
+            android:text="View"
+            android:id="@+id/viewButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:padding="15dp"
             android:textSize="18dp"
+            android:layout_below="@+id/postSubjectList"
             />
 
-    </LinearLayout>
 
 
-</ScrollView>
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

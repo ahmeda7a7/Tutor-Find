@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostEditActivity"></activity>
+        <activity android:name=".AllRequestActivity"></activity>
+        <activity android:name=".PostEditActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +28,16 @@
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".StartActivity" />
-        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".StartActivity" />
         <activity android:name=".MainActivity" />
+
+        <service
+            android:name=".Notifications.FirebaseService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.tutor_find.Adapter.PostAdapter;
 import com.example.tutor_find.Fragments.AllPostActivity;
 import com.example.tutor_find.Fragments.MyPostActivity;
+import com.example.tutor_find.Fragments.RequestPostActivity;
 import com.example.tutor_find.Model.Post;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.tabs.TabLayout;
@@ -68,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new AllPostActivity(), "All Posts");
+        viewPagerAdapter.addFragment(new AllPostActivity(), "Home");
         viewPagerAdapter.addFragment(new MyPostActivity(), "My Posts");
+        viewPagerAdapter.addFragment(new RequestPostActivity(), "Requests");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

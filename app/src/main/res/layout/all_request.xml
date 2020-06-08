@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ConfirmActivity">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postGroup"
+            android:id="@+id/userName"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
@@ -24,78 +23,87 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postCurriculum"
+            android:id="@+id/userInstitution"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/userName"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userDepartment"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_below="@+id/userInstitution"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postStudyClass"
+            android:id="@+id/userStudyYear"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/userDepartment"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postSubjectList"
+            android:id="@+id/userEmail"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@+id/userStudyYear"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postSalary"
+            android:id="@+id/userNumber"
             android:padding="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_below="@id/userEmail"
             />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/postDescription"
+            android:id="@+id/userStatus"
+            android:text="Status"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/userNumber"
             android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/postArea"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/postAddress"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="15dp"
             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/confirmButton"
-            android:text="Apply"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
+            android:text="Accept"
+            android:id="@+id/acceptButton"
+            android:padding="15dp"
             android:textSize="18dp"
+            android:layout_below="@id/userNumber"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             />
 
-    </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reject"
+            android:id="@+id/rejectButton"
+            android:padding="15dp"
+            android:textSize="18dp"
+            android:layout_below="@+id/userNumber"/>
+
+    </RelativeLayout>
 
 
-</ScrollView>
+</androidx.cardview.widget.CardView>

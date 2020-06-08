@@ -15,8 +15,6 @@ import com.example.tutor_find.ConfirmActivity;
 import com.example.tutor_find.MainActivity;
 import com.example.tutor_find.Model.Post;
 import com.example.tutor_find.R;
-import com.example.tutor_find.StartActivity;
-import com.example.tutor_find.StudentRegActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import org.w3c.dom.Text;
@@ -47,25 +45,6 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
 
                 String postId = model.getPostId();
 
-//                String group = model.getGroup();
-//                String curriculum = model.getCurriculum();
-//                String studyClass = model.getStudyClass();
-//                String subjectList = model.getSubjectList();
-//                String salary = model.getSalary();
-//                String description = model.getDescription();
-//                String area = model.getArea();
-//                String address = model.getAddress();
-//                String userId = model.getUserId();
-
-//                intent.putExtra("group", group);
-//                intent.putExtra("curriculum", curriculum);
-//                intent.putExtra("studyClass", studyClass);
-//                intent.putExtra("subjectList", subjectList);
-//                intent.putExtra("salary", salary);
-//                intent.putExtra("description", description);
-//                intent.putExtra("area", area);
-//                intent.putExtra("address", address);
-//                intent.putExtra("userId", userId);
                 intent.putExtra("postId", postId);
 
                 holder.applyButton.getContext().startActivity(intent);

@@ -210,6 +210,8 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("area").setValue(areaTypeValue);
             newPost.child("address").setValue(addressText);
             newPost.child("postId").setValue(postId);
+            newPost.child(userId).setValue(false);
+            //newPost.child("requests").child(userId).setValue(false);
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
 

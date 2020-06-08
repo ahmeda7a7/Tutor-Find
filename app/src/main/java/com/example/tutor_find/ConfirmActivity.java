@@ -2,14 +2,30 @@ package com.example.tutor_find;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.tutor_find.Notifications.Data;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +33,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ConfirmActivity extends AppCompatActivity {
@@ -45,9 +72,14 @@ public class ConfirmActivity extends AppCompatActivity {
     String postId;
 
     DatabaseReference databaseReference;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+    DatabaseReference requestReference;
     DatabaseReference userReference;
+    FirebaseUser firebaseUser;
+
+    private RequestQueue requestQueue;
+    private String notificationURL = "https://fcm.googleapis.com/fcm/send";
+    private final String CHANNEL_ID = "tutor_requests";
+    private final int NOTIFICATION_ID = 001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +88,10 @@ public class ConfirmActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Confirm Tuition");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        requestQueue = Volley.newRequestQueue(this);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
 
         postGroup = findViewById(R.id.postGroup);
         postCurriculum = findViewById(R.id.postCurriculum);
@@ -70,6 +106,10 @@ public class ConfirmActivity extends AppCompatActivity {
         postId = getIntent().getExtras().getString("postId");
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).child("requests");
+        requestReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,10 +148,63 @@ public class ConfirmActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ConfirmActivity.this, "Request Send", Toast.LENGTH_SHORT).show();
+
+                //sendNotification();
+                String check = userReference.child(postId).getDatabase().toString();
+                if(!check.isEmpty())
+                {
+                    String requestUserId = firebaseUser.getUid();
+                    requestReference.child("requests").child(requestUserId).setValue(false);
+                    requestReference.child("decision").setValue(false);
+                    userReference.child(postId).setValue(false);
+                    databaseReference.child(userId).setValue(true);
+                    Toast.makeText(ConfirmActivity.this, check, Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(ConfirmActivity.this, "You have already applied for this post", Toast.LENGTH_SHORT).show();
+                }
+
                 startActivity(new Intent(ConfirmActivity.this, MainActivity.class));
                 finish();
             }
         });
+    }
+
+
+    private void sendNotification() {
+
+
+        createNotificationChannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+
+        builder.setSmallIcon(R.drawable.ic_add);
+        builder.setContentTitle("simple notification");
+        builder.setContentText("this is a notification");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private void createNotificationChannel() {
+
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            CharSequence name = "tutor_requests";
+
+            String description = "all the tutor requests notifications";
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+            notificationChannel.setDescription(description);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }

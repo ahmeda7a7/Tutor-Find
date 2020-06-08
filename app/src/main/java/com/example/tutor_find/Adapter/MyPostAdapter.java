@@ -32,7 +32,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position, @NonNull Post model) {
+    protected void onBindViewHolder(@NonNull final MyPostViewHolder holder, int position, @NonNull final Post model) {
 
         holder.postGroup.setText("Group: " + model.getGroup());
         holder.postCurriculum.setText("Curriculum: " + model.getCurriculum());
