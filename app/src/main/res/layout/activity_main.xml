@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             app:tabTextColor="@color/WhiteColor"
+            app:tabSelectedTextColor="@color/BlackColor"
             android:id="@+id/userTab"
             />
 
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/viewPager"
-            android:background="@color/WhiteColor"/>
+            android:background="@drawable/whitebackground"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

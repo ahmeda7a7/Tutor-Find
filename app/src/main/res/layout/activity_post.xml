@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:background="@drawable/whitebackground"
     tools:context=".PostActivity">
 
     <LinearLayout
@@ -18,7 +19,7 @@
         android:id="@+id/group"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="20sp"
+        android:paddingVertical="30sp"
         />
 
     <Spinner
@@ -28,7 +29,7 @@
         android:layout_below="@+id/group"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="20sp"
+        android:paddingVertical="30sp"
         />
 
     <Spinner
@@ -38,7 +39,7 @@
         android:layout_below="@+id/curriculum"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="20sp"
+        android:paddingVertical="30sp"
         />
 
     <Button
@@ -48,36 +49,33 @@
         android:layout_below="@+id/studyClass"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/WhiteColor"
+        android:background="#F44336"
         android:text="Choose Subjects"
-        android:textSize="20sp"
-        android:gravity="start"
-        android:textAlignment="viewStart"
+        android:textColor="@color/WhiteColor"
+        android:textSize="15sp"
+        android:paddingVertical="20sp"
+        android:gravity="center_horizontal"
         />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/salary"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/subjectList"
         android:layout_marginHorizontal="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/BlackColor"
         android:inputType="number"
+        app:met_floatingLabel="normal"
         android:hint="Salary"
         />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/salary"
         android:layout_marginHorizontal="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/BlackColor"
         android:inputType="textMultiLine"
+        app:met_floatingLabel="normal"
         android:hint="Description"
         />
 
@@ -87,29 +85,30 @@
         android:id="@+id/area"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="20sp"
+        android:paddingVertical="30sp"
         />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/address"
-        android:layout_below="@+id/area"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/BlackColor"
         android:inputType="textMultiLine"
+        app:met_floatingLabel="normal"
         android:hint="Detailed Address"
         />
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/submitButton"
+        android:background="@drawable/button_round_edge"
+        android:textColor="@color/WhiteColor"
         android:text="Submit"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="80dp"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
         />

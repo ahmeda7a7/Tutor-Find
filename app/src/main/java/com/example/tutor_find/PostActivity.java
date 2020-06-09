@@ -1,5 +1,6 @@
 package com.example.tutor_find;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,7 +50,7 @@ public class PostActivity extends AppCompatActivity {
 
     private String[] listItems;
     private boolean[] checkedItems;
-    private String subjectItems;
+    private String subjectItems="";
 
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
@@ -57,7 +60,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Create Post");
 
         group = findViewById(R.id.group);
         curriculum = findViewById(R.id.curriculum);
@@ -88,8 +91,6 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                subjectItems = "";
-
                 final AlertDialog.Builder listBuilder = new AlertDialog.Builder(PostActivity.this);
                 listBuilder.setTitle("Choose Subjects");
 
@@ -105,7 +106,7 @@ public class PostActivity extends AppCompatActivity {
                 listBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        subjectItems="";
                         for(int i=0; i < checkedItems.length; i++)
                         {
                             if(checkedItems[i])
@@ -117,8 +118,10 @@ public class PostActivity extends AppCompatActivity {
                                 subjectItems = subjectItems + listItems[i];
                             }
                         }
-
-                        Toast.makeText(PostActivity.this, subjectItems, Toast.LENGTH_SHORT).show();
+                        if (!subjectItems.isEmpty())
+                        {
+                            subjectListButton.setText(subjectItems);
+                        }
                     }
                 });
 
@@ -137,16 +140,12 @@ public class PostActivity extends AppCompatActivity {
                             checkedItems[i] = false;
                             subjectItems = "";
                         }
+                        subjectListButton.setText("Choose Subjects");
                     }
                 });
 
                 AlertDialog alertDialog = listBuilder.create();
                 alertDialog.show();
-
-                if(!subjectItems.isEmpty())
-                {
-                    subjectListButton.setText(subjectItems);
-                }
             }
         });
 
@@ -158,6 +157,23 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(PostActivity.this, MainActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void startPosting() {
 
@@ -200,7 +216,6 @@ public class PostActivity extends AppCompatActivity {
 
             String postId = newPost.getKey();
 
-            newPost.child("userId").setValue(userId);
             newPost.child("group").setValue(groupTypeValue);
             newPost.child("curriculum").setValue(curriculumTypeValue);
             newPost.child("studyClass").setValue(studyClassTypeValue);
@@ -210,7 +225,9 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("area").setValue(areaTypeValue);
             newPost.child("address").setValue(addressText);
             newPost.child("postId").setValue(postId);
+            newPost.child("userId").setValue(userId);
             newPost.child(userId).setValue(false);
+            newPost.child("status").setValue(false);
             //newPost.child("requests").child(userId).setValue(false);
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
@@ -223,7 +240,7 @@ public class PostActivity extends AppCompatActivity {
     private void setAreaSpinner() {
 
         List<String> categories = new ArrayList<>();
-        categories.add(0,"Area");
+        categories.add(0,"Select Area:");
         categories.add("Airport");
         categories.add("Badda");
         categories.add("Bashundhara R/A");
@@ -272,7 +289,7 @@ public class PostActivity extends AppCompatActivity {
 
     private void setStudyClassSpinner() {
         List<String> categories = new ArrayList<>();
-        categories.add(0,"Class");
+        categories.add(0,"Select Class:");
         categories.add("Nursery");
         categories.add("KG");
         categories.add("1");
@@ -287,7 +304,7 @@ public class PostActivity extends AppCompatActivity {
         categories.add("10");
         categories.add("11");
         categories.add("12");
-        categories.add("others");
+        categories.add("Others");
 
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
@@ -318,10 +335,11 @@ public class PostActivity extends AppCompatActivity {
 
     private void setCurriculumSpinner() {
         List<String> categories = new ArrayList<>();
-        categories.add(0,"Curriculum");
+        categories.add(0,"Select Curriculum:");
         categories.add("Bangla Medium");
         categories.add("English Medium");
         categories.add("English Version");
+        categories.add("Others");
 
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
@@ -352,10 +370,11 @@ public class PostActivity extends AppCompatActivity {
 
     private void setGroupSpinner() {
         List<String> categories = new ArrayList<>();
-        categories.add(0,"Group");
+        categories.add(0,"Select Group:");
         categories.add("Science");
         categories.add("Arts");
         categories.add("Commerce");
+        categories.add("Others");
 
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);

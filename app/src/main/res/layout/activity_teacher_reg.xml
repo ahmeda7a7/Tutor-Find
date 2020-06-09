@@ -100,7 +100,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Preferred Area"
+                android:text="Select Preferred Area"
                 android:id="@+id/btn_area_pref"
                 android:layout_below="@+id/ContactNo"
                 android:layout_marginTop="20dp"

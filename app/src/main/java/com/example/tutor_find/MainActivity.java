@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String FullName = dataSnapshot.child("Full Name").getValue().toString();
+                String FullName = dataSnapshot.child("name").getValue().toString();
                 getSupportActionBar().setTitle(FullName);
             }
 

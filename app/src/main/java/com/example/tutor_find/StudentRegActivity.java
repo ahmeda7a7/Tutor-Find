@@ -97,7 +97,7 @@ public class StudentRegActivity extends AppCompatActivity {
     }
 
 
-    private void register(final String email, String password, final String contactno, final String fullname){
+    private void register(final String email, final String password, final String contactno, final String fullname){
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -111,11 +111,12 @@ public class StudentRegActivity extends AppCompatActivity {
                     reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userid);
 
                     HashMap<String , String> hashMap = new HashMap<>();
-                    hashMap.put("id",userid);
+                    hashMap.put("name", fullname);
                     hashMap.put("email", email);
-                    hashMap.put("Contact No", contactno);
-                    hashMap.put("Full Name", fullname);
-                    hashMap.put("User Type", "Student");
+                    hashMap.put("password", password);
+                    hashMap.put("number", contactno);
+                    hashMap.put("userId",userid);
+                    hashMap.put("userType", "Student");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

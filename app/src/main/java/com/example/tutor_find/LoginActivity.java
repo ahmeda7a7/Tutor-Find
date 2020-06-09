@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,9 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        getSupportActionBar().setTitle("Login");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Login");
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -63,5 +64,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(LoginActivity.this, StartActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

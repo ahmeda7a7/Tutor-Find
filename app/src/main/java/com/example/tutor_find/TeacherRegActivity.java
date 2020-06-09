@@ -127,8 +127,10 @@ public class TeacherRegActivity extends AppCompatActivity {
                                 Area = Area + listItems[i];
                             }
                         }
-                        btn_area_pref.setText("");
-                        btn_area_pref.setText(Area);
+                        if(!Area.isEmpty())
+                        {
+                            btn_area_pref.setText(Area);
+                        }
                     }
                 });
 
@@ -147,8 +149,7 @@ public class TeacherRegActivity extends AppCompatActivity {
                             checkedItems[i] = false;
                             Area = "";
                         }
-                        btn_area_pref.setText("");
-                        btn_area_pref.setText(Area);
+                        btn_area_pref.setText("Select Preferred Area");
                     }
                 });
 
@@ -222,16 +223,16 @@ public class TeacherRegActivity extends AppCompatActivity {
                     reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userid);
 
                     HashMap<String , String> hashMap = new HashMap<>();
-                    hashMap.put("userId",userid);
-                    hashMap.put("email", email);
-                    hashMap.put("number", contactno);
                     hashMap.put("name", fullname);
-                    hashMap.put("userType", "Tutor");
-                    hashMap.put("area", prefArea);
                     hashMap.put("institution", institution);
                     hashMap.put("department", department);
                     hashMap.put("year", year);
+                    hashMap.put("email", email);
                     hashMap.put("password", password);
+                    hashMap.put("number", contactno);
+                    hashMap.put("area", prefArea);
+                    hashMap.put("userId",userid);
+                    hashMap.put("userType", "Tutor");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
