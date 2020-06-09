@@ -6,4 +6,5 @@
     <color name="colorButtonSelect">#3679B4</color>
     <color name="WhiteColor">#ffffff</color>
     <color name="BlackColor">#000000</color>
+    <color name="buttonColorRed">#F44336</color>
 </resources>

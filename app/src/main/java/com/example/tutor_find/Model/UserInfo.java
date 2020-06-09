@@ -8,16 +8,16 @@ public class UserInfo {
     String year;
     String email;
     String number;
-    String id;
+    String userId;
 
-    public UserInfo(String name, String institution, String department, String year, String email, String number, String id) {
+    public UserInfo(String name, String institution, String department, String year, String email, String number, String userId) {
         this.name = name;
         this.institution = institution;
         this.department = department;
         this.year = year;
         this.email = email;
         this.number = number;
-        this.id = id;
+        this.userId= userId;
     }
 
     public UserInfo() {
@@ -71,11 +71,11 @@ public class UserInfo {
         this.number = number;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

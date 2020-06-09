@@ -13,7 +13,6 @@ public class Post {
     String userId;
     String postId;
     String area;
-//    String decision;
 
     public Post(String address, String curriculum, String group, String salary, String studyClass, String subjectList, String description, String userId, String postId, String area) {
         this.address = address;
@@ -26,7 +25,6 @@ public class Post {
         this.userId = userId;
         this.postId = postId;
         this.area = area;
-//        this.decision = decision;
     }
 
     public Post() {

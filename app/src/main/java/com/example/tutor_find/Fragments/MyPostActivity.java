@@ -36,7 +36,6 @@ public class MyPostActivity extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_post_activity, container, false);
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userId = firebaseUser.getUid();

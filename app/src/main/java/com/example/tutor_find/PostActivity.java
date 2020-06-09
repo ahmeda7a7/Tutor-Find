@@ -226,9 +226,17 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("address").setValue(addressText);
             newPost.child("postId").setValue(postId);
             newPost.child("userId").setValue(userId);
-            newPost.child(userId).setValue(false);
-            newPost.child("status").setValue(false);
-            //newPost.child("requests").child(userId).setValue(false);
+
+            //database change
+
+//            newPost.child(userId).setValue(false);
+//            newPost.child("status").setValue(false);
+
+            newPost.child(userId).child("acceptStatus").setValue(false);
+            newPost.child(userId).child("requestStatus").setValue(false);
+            newPost.child(userId).child(userId).setValue(true);
+
+            //database change
 
             Toast.makeText(PostActivity.this, "Uploading", Toast.LENGTH_SHORT).show();
 

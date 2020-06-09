@@ -47,7 +47,13 @@ public class AllPostActivity extends Fragment {
         postList.setHasFixedSize(true);
         postList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId).equalTo(null);
+        //database change
+
+        //Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId).equalTo(null);
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId+"/"+userId).equalTo(null);
+
+        //database change
 
         FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.tutor_find.Adapter.AllRequestAdapter;
 import com.example.tutor_find.Model.UserInfo;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +43,8 @@ public class AllRequestActivity extends AppCompatActivity {
 //    String description;
 //    String area;
 //    String address;
-//    String userId;
+
+    String userId;
     String postId;
 
 
@@ -61,37 +63,30 @@ public class AllRequestActivity extends AppCompatActivity {
 
         postId = getIntent().getExtras().getString("postId");
 
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-//        postGroup = findViewById(R.id.postGroup);
-//        postCurriculum = findViewById(R.id.postCurriculum);
-//        postStudyClass = findViewById(R.id.postStudyClass);
-//        postSubjectList = findViewById(R.id.postSubjectList);
-//        postSalary = findViewById(R.id.postSalary);
-//        postDescription = findViewById(R.id.postDescription);
-//        postArea = findViewById(R.id.postArea);
-//        postAddress = findViewById(R.id.postAddress);
+        allRequestList = findViewById(R.id.allRequestList);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("decision");
+        allRequestList.setHasFixedSize(true);
+        allRequestList.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(userId).child("acceptStatus");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String checkAcceptStatus = dataSnapshot.getValue().toString();
 
-                queryValue = dataSnapshot.getValue().toString();
-
-                allRequestList = findViewById(R.id.allRequestList);
-
-                allRequestList.setHasFixedSize(true);
-                allRequestList.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-
-                if(queryValue.equals("false"))
-                {
-                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(false);
-                }
-                else
+                if (checkAcceptStatus.equals("true"))
                 {
                     query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(true);
                 }
+                else
+                {
+                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(false);
+                }
+
 
                 FirebaseRecyclerOptions<UserInfo> options = new FirebaseRecyclerOptions.Builder<UserInfo>().setQuery(query, UserInfo.class).build();
 
@@ -106,23 +101,6 @@ public class AllRequestActivity extends AppCompatActivity {
 
             }
         });
-
-
-//        allRequestList = findViewById(R.id.allRequestList);
-//
-//        allRequestList.setHasFixedSize(true);
-//        allRequestList.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-//
-//        query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(false);
-//
-//        FirebaseRecyclerOptions<UserInfo> options = new FirebaseRecyclerOptions.Builder<UserInfo>().setQuery(query, UserInfo.class).build();
-//
-//        adapter = new AllRequestAdapter(options,postId);
-//        adapter.startListening();
-//
-//        allRequestList.setAdapter(adapter);
-
-
 
     }
 }

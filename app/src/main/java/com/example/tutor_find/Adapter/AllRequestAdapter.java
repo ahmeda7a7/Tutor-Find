@@ -17,6 +17,7 @@ import com.example.tutor_find.Model.UserInfo;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
     DatabaseReference otherUserReference;
 
     String postId;
-    String userId;
+    String userId="";
 
 
     public AllRequestAdapter(@NonNull FirebaseRecyclerOptions<UserInfo> options, String postId) {
@@ -41,7 +42,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final AllRequestPostViewHolder holder, int position, @NonNull UserInfo model) {
+    protected void onBindViewHolder(@NonNull final AllRequestPostViewHolder holder, int position, @NonNull final UserInfo model) {
 
         holder.userName.setText("Name: "+model.getName());
         holder.userInstitution.setText("Institution: "+model.getInstitution());
@@ -50,14 +51,14 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
         holder.userEmail.setText("Email: "+model.getEmail());
         holder.userNumber.setText("Mobile No: "+model.getNumber());
 
-        userId = model.getId();
+        userId = model.getUserId();
 
-        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("requests").child(postId);
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String check = dataSnapshot.getValue().toString();
+                String check = dataSnapshot.child("requests").child(postId).getValue().toString();
                 if(check.equals("true"))
                 {
                     holder.userStatus.setText("Accepted");
@@ -93,14 +94,17 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(holder.acceptButton.getContext(), "Tutor Selected", Toast.LENGTH_SHORT).show();
 
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requests");
-                        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("requests").child(postId);
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
 
-                        databaseReference.removeValue();
-                        databaseReference.child(userId).setValue(true);
+                        databaseReference.child("requests").removeValue();
+                        databaseReference.child("requests").child(model.getUserId()).setValue(true);
 
-                        userReference.setValue(true);
+                        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+                        databaseReference.child(currentUserId).child("acceptStatus").setValue(true);
+
+                        otherUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
+                        otherUserReference.setValue(true);
 
                     }
                 });

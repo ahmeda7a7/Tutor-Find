@@ -50,7 +50,13 @@ public class RequestPostActivity extends Fragment {
         requestPostList.setHasFixedSize(true);
         requestPostList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId).equalTo(true);
+        //database change
+
+        //Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId).equalTo(true);
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Posts").orderByChild(userId+"/requestStatus").equalTo(true);
+
+        //database change
 
         FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
 

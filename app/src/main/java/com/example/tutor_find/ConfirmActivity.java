@@ -154,10 +154,20 @@ public class ConfirmActivity extends AppCompatActivity {
                 if(!check.isEmpty())
                 {
                     String requestUserId = firebaseUser.getUid();
-                    requestReference.child("requests").child(requestUserId).setValue(false);
-                    requestReference.child("decision").setValue(false);
+
+                    //database change
+
+//                    requestReference.child("requests").child(requestUserId).setValue(false);
+//                    requestReference.child("decision").setValue(false);
+//                    databaseReference.child(userId).setValue(true);
+
+                    requestReference.child("requests").child(firebaseUser.getUid()).setValue(false);
+                    databaseReference.child(userId).child("requestStatus").setValue(true);
+
+                    //database change
+
                     userReference.child(postId).setValue(false);
-                    databaseReference.child(userId).setValue(true);
+
                     Toast.makeText(ConfirmActivity.this, check, Toast.LENGTH_SHORT).show();
                 }
                 else

@@ -105,7 +105,7 @@
                 android:layout_below="@+id/ContactNo"
                 android:layout_marginTop="20dp"
                 android:textSize="15sp"
-                android:background="#F44336"
+                android:background="@color/buttonColorRed"
                 android:textColor="@color/WhiteColor"
                 android:layout_gravity="center_horizontal"
                 />

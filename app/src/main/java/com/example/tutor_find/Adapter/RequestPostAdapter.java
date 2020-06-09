@@ -39,7 +39,9 @@ public class RequestPostAdapter extends FirebaseRecyclerAdapter<Post, RequestPos
         holder.postStudyClass.setText("Class: " + model.getStudyClass());
         holder.postSubjectList.setText("Subjects: " + model.getSubjectList());
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(model.getPostId()).child("decision");
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(model.getPostId()).child(model.getUserId()).child("acceptStatus");
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,7 +54,7 @@ public class RequestPostAdapter extends FirebaseRecyclerAdapter<Post, RequestPos
                 }
                 else
                 {
-                    holder.postDecision.setText("pending");
+                    holder.postDecision.setText("Pending");
                     holder.postDecision.setTextColor(Color.parseColor("#D81B60"));
 
                 }
