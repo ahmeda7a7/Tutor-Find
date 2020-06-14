@@ -74,7 +74,10 @@ public class ConfirmActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     DatabaseReference requestReference;
     DatabaseReference userReference;
+    DatabaseReference checkUserReference;
+    DatabaseReference requestNumberReference;
     FirebaseUser firebaseUser;
+
 
     private RequestQueue requestQueue;
     private String notificationURL = "https://fcm.googleapis.com/fcm/send";
@@ -142,38 +145,78 @@ public class ConfirmActivity extends AppCompatActivity {
         });
 
 
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        userReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //sendNotification();
-                String check = userReference.child(postId).getDatabase().toString();
-                if(!check.isEmpty())
-                {
-                    String requestUserId = firebaseUser.getUid();
 
-                    //database change
 
-//                    requestReference.child("requests").child(requestUserId).setValue(false);
-//                    requestReference.child("decision").setValue(false);
-//                    databaseReference.child(userId).setValue(true);
+                checkUserReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(userId).child("requestStatus");
 
-                    requestReference.child("requests").child(firebaseUser.getUid()).setValue(false);
-                    databaseReference.child(userId).child("requestStatus").setValue(true);
+                final String[] pushNumber = {""};
 
-                    //database change
+                requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                requestNumberReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String checkRequestNumber = dataSnapshot.getValue().toString();
 
-                    userReference.child(postId).setValue(false);
 
-                    Toast.makeText(ConfirmActivity.this, check, Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(ConfirmActivity.this, "You have already applied for this post", Toast.LENGTH_SHORT).show();
-                }
+                        int convertedNumber = Integer.valueOf(checkRequestNumber);
+                        int testNumber = convertedNumber + 1;
+                        pushNumber[0] = String.valueOf(testNumber);
+
+                        //DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                        //newRequestNumberReference.setValue(pushNumber);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                checkUserReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        String checkRequestStatus = dataSnapshot.getValue().toString();
+                        if(checkRequestStatus.equals("false"))
+                        {
+
+                            databaseReference.child(userId).child("requestStatus").setValue(true);
+                            userReference.child(postId).setValue(false);
+                            requestReference.child("requests").child(currentUser).setValue(false);
+
+                            requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                            requestNumberReference.setValue("1");
+                        }
+                        else
+                        {
+
+                            userReference.child(postId).setValue(false);
+                            requestReference.child("requests").child(currentUser).setValue(false);
+                            DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                            newRequestNumberReference.setValue(pushNumber[0]);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                Toast.makeText(ConfirmActivity.this, "Apply Successful", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(ConfirmActivity.this, MainActivity.class));
                 finish();

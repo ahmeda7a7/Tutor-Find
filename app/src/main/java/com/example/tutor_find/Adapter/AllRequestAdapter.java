@@ -31,6 +31,8 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
     DatabaseReference databaseReference;
     DatabaseReference userReference;
     DatabaseReference otherUserReference;
+    DatabaseReference removeUserReference;
+    DatabaseReference requestNumberReference;
 
     String postId;
     String userId="";
@@ -63,6 +65,8 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                 {
                     holder.userStatus.setText("Accepted");
                     holder.userStatus.setTextColor(Color.parseColor("#008577"));
+                    holder.acceptButton.setVisibility(View.GONE);
+                    holder.rejectButton.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -96,9 +100,6 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
 
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
 
-                        databaseReference.child("requests").removeValue();
-                        databaseReference.child("requests").child(model.getUserId()).setValue(true);
-
                         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                         databaseReference.child(currentUserId).child("acceptStatus").setValue(true);
@@ -126,7 +127,86 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder deleteConfirmation;
+                deleteConfirmation = new AlertDialog.Builder(holder.rejectButton.getContext());
+                deleteConfirmation.setTitle("Delete Tutor");
+                deleteConfirmation.setMessage("Click Delete to reject this tutor");
+
+                deleteConfirmation.setCancelable(false);
+
+                deleteConfirmation.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        otherUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
+                        otherUserReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                String check = dataSnapshot.getValue().toString();
+
+                                if(!check.equals("true"))
+                                {
+                                    removeUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
+                                    removeUserReference.removeValue();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        final String[] checkRequestNumber = {""};
+
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String requestNumber = dataSnapshot.getValue().toString();
+
+                                int requestNumberValue = Integer.valueOf(requestNumber);
+                                int pushNumber = requestNumberValue - 1;
+
+                                checkRequestNumber[0] = String.valueOf(pushNumber);
+
+                                requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+                                requestNumberReference.child("requestNumber").setValue(checkRequestNumber[0]);
+
+                                if (checkRequestNumber[0].equals("0"))
+                                {
+                                    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    requestNumberReference.child(currentUser).child("requestStatus").setValue(false);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+
+
+                });
+
+                deleteConfirmation.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog alertDialog = deleteConfirmation.create();
+                alertDialog.show();
+
             }
+
+
+
         });
     }
 

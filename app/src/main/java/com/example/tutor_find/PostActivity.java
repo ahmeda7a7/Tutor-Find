@@ -227,6 +227,8 @@ public class PostActivity extends AppCompatActivity {
             newPost.child("postId").setValue(postId);
             newPost.child("userId").setValue(userId);
 
+            newPost.child("requestNumber").setValue("0");
+
             //database change
 
 //            newPost.child(userId).setValue(false);
