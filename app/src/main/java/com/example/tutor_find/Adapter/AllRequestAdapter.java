@@ -105,7 +105,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                         databaseReference.child(currentUserId).child("acceptStatus").setValue(true);
 
                         otherUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
-                        otherUserReference.setValue("true");
+                        otherUserReference.setValue(true);
 
                     }
                 });

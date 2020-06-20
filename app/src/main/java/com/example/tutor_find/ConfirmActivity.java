@@ -193,7 +193,7 @@ public class ConfirmActivity extends AppCompatActivity {
                         {
 
                             databaseReference.child(userId).child("requestStatus").setValue(true);
-                            userReference.child(postId).setValue("false");
+                            userReference.child(postId).setValue(false);
                             requestReference.child("requests").child(currentUser).setValue(false);
 
                             requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
@@ -202,7 +202,7 @@ public class ConfirmActivity extends AppCompatActivity {
                         else
                         {
 
-                            userReference.child(postId).setValue("false");
+                            userReference.child(postId).setValue(false);
                             requestReference.child("requests").child(currentUser).setValue(false);
                             DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
                             newRequestNumberReference.setValue(pushNumber[0]);
