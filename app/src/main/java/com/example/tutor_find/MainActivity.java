@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        //lines were commented out and this thing worked
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
