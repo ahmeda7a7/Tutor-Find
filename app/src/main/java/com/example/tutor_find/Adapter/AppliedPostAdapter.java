@@ -30,7 +30,7 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final AppliedPostViewHolder holder, int position, @NonNull Post model) {
+    protected void onBindViewHolder(@NonNull final AppliedPostViewHolder holder, int position, @NonNull final Post model) {
 
         holder.postGroup.setText("Group: " + model.getGroup());
         holder.postCurriculum.setText("Curriculum: " + model.getCurriculum());
@@ -43,14 +43,14 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
 
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("requests").child(model.getPostId());
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String decision = dataSnapshot.getValue().toString();
+                String decision = dataSnapshot.child("requests").child(model.getPostId()).getValue().toString();
 
-                if(decision.equals(null))
+                if(decision.equals("rejected"))
                 {
                     holder.postDecision.setText("Rejected");
                     holder.postDecision.setTextColor(Color.parseColor("#F44336"));

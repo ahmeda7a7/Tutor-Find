@@ -80,11 +80,11 @@ public class AllRequestActivity extends AppCompatActivity {
 
                 if (checkAcceptStatus.equals("true"))
                 {
-                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(true);
+                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo("true");
                 }
                 else
                 {
-                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo(false);
+                    query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("requests/"+postId).equalTo("false");
                 }
 
 

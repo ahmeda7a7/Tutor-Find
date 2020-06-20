@@ -105,7 +105,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                         databaseReference.child(currentUserId).child("acceptStatus").setValue(true);
 
                         otherUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
-                        otherUserReference.setValue(true);
+                        otherUserReference.setValue("true");
 
                     }
                 });
@@ -148,7 +148,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                                 if(!check.equals("true"))
                                 {
                                     removeUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
-                                    removeUserReference.removeValue();
+                                    removeUserReference.setValue("rejected");
                                 }
                             }
 
