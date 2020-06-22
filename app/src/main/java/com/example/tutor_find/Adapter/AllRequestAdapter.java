@@ -180,7 +180,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                                     requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
                                     requestNumberReference.child("requestNumber").setValue(checkRequestNumber[0]);
 
-                                    if (checkRequestNumber[0].equals("0")) {
+                                    if (checkRequestNumber[0].equals('0')) {
                                         String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                         requestNumberReference.child(currentUser).child("requestStatus").setValue(false);
                                     }
