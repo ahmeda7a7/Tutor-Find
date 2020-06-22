@@ -171,8 +171,6 @@ public class ConfirmActivity extends AppCompatActivity {
 
                         //DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
                         //newRequestNumberReference.setValue(pushNumber);
-
-
                     }
 
                     @Override
@@ -209,7 +207,6 @@ public class ConfirmActivity extends AppCompatActivity {
 
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
