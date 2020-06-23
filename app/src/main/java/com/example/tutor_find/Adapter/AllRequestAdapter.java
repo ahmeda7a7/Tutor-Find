@@ -201,6 +201,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
 
                                 DatabaseReference requestNumberReference;
                                 requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                                requestNumberReference.removeValue();
                                 requestNumberReference.setValue(checkRequestNumber[0]);
                                 Log.d("decrease", "request value in datasnapshot: " + checkRequestNumber[0]);
 
@@ -208,6 +209,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                                     Log.d("decrease", "request value in datasnapshot: " + checkRequestNumber[0]);
                                     DatabaseReference requestStatusReference;
                                     requestStatusReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
+                                    requestStatusReference.removeValue();
                                     requestStatusReference.setValue(false);
 
 

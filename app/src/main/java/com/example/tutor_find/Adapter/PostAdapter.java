@@ -119,8 +119,6 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostAdapter.PostV
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singlepost, parent, false);
 
-        //view.setVisibility(View.GONE);
-
         return new PostViewHolder(view);
 
     }

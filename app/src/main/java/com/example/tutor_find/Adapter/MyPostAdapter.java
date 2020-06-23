@@ -23,9 +23,12 @@ import com.example.tutor_find.PostEditActivity;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.MyPostViewHolder> {
 
+    DatabaseReference deletePost;
 
     public MyPostAdapter(@NonNull FirebaseRecyclerOptions<Post> options) {
         super(options);
@@ -73,6 +76,10 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
                 deleteConfirmation.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
+//                        deletePost = FirebaseDatabase.getInstance().getReference().child("Posts").child(model.getPostId());
+//                        deletePost.removeValue();
+
                         Toast.makeText(holder.deleteButton.getContext(), "Post Deleted", Toast.LENGTH_SHORT).show();
 
                     }
