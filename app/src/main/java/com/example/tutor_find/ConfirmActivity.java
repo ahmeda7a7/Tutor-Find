@@ -162,15 +162,14 @@ public class ConfirmActivity extends AppCompatActivity {
                 requestNumberReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String checkRequestNumber = dataSnapshot.getValue().toString();
 
+                        String checkRequestNumber = dataSnapshot.getValue().toString();
 
                         int convertedNumber = Integer.valueOf(checkRequestNumber);
                         int testNumber = convertedNumber + 1;
+
                         pushNumber[0] = String.valueOf(testNumber);
 
-                        //DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
-                        //newRequestNumberReference.setValue(pushNumber);
                     }
 
                     @Override
@@ -191,6 +190,7 @@ public class ConfirmActivity extends AppCompatActivity {
                         {
 
                             databaseReference.child(userId).child("requestStatus").setValue(true);
+                            databaseReference.child(userId).child("hasRequest").setValue(true);
                             userReference.child(postId).setValue(false);
                             requestReference.child("requests").child(currentUser).setValue(false);
 
@@ -199,12 +199,14 @@ public class ConfirmActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            if (!currentUser.equals(userId)) {
+                                Log.d("decrease", "inside confirm");
+                                userReference.child(postId).setValue(false);
+                                requestReference.child("requests").child(currentUser).setValue(false);
 
-                            userReference.child(postId).setValue(false);
-                            requestReference.child("requests").child(currentUser).setValue(false);
-                            DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
-                            newRequestNumberReference.setValue(pushNumber[0]);
-
+                                DatabaseReference newRequestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                                newRequestNumberReference.setValue(pushNumber[0]);
+                            }
                         }
                     }
                     @Override

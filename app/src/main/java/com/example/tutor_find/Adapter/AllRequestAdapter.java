@@ -2,6 +2,7 @@ package com.example.tutor_find.Adapter;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,6 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
     DatabaseReference userReference;
     DatabaseReference otherUserReference;
     DatabaseReference removeUserReference;
-    DatabaseReference requestNumberReference;
-    DatabaseReference requestStatusReference;
     DatabaseReference anotherDatabaseReference;
     DatabaseReference tempdatabaseReference;
 
@@ -142,6 +141,10 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+
+                        anotherDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+
                         otherUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getUserId()).child("requests").child(postId);
                         otherUserReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -162,108 +165,109 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                             }
                         });
 
-                        final String[] checkRequestNumber = {""};
 
-                        final String[] counterCheck = {"pending"};
+                        final String[] checkRequestNumber = {""};
 
                         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            boolean processDone = true;
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-//                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-//                        databaseReference.addValueEventListener(new ValueEventListener() {
+                                if (processDone) {
+
+                                    String requestNumber = dataSnapshot.getValue().toString();
+                                    Log.d("decrease", "inside requestAdapter");
+
+                                    int requestNumberValue = Integer.valueOf(requestNumber);
+                                    int pushNumber = requestNumberValue - 1;
+                                    checkRequestNumber[0] = String.valueOf(pushNumber);
+
+                                }
+                                processDone = false;
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        Log.d("decrease", "request value outside datasnapshot: " + checkRequestNumber[0]);
+
+                        anotherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                DatabaseReference requestNumberReference;
+                                requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
+                                requestNumberReference.setValue(checkRequestNumber[0]);
+                                Log.d("decrease", "request value in datasnapshot: " + checkRequestNumber[0]);
+
+                                if (checkRequestNumber[0].equals("0")) {
+                                    Log.d("decrease", "request value in datasnapshot: " + checkRequestNumber[0]);
+                                    DatabaseReference requestStatusReference;
+                                    requestStatusReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
+                                    requestStatusReference.setValue(false);
+
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+//                        final String[] checkRequestNumber = {""};
+//
+//                        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                        final int[] count = {0};
+//
+//                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            boolean processDone = true;
 //                            @Override
 //                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                String requestNumber = dataSnapshot.child("requestNumber").getValue().toString();
-//                                String checkStatus = dataSnapshot.child(currentUser.getUid()).child("requestStatus").getValue().toString();
 //
-//                                requestStatusReference =  FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
-//                                requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
-//                                removeUserReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requests");
+//                                if (processDone) {
 //
-//                                if(requestNumber.equals("1") && checkStatus.equals("true"))
-//                                {
-//                                    requestNumberReference.setValue("0");
-//                                    requestStatusReference.setValue(false);
-//                                }
-//                                else
-//                                {
-//                                    //if(counterCheck[0].equals("pending")) {
-//                                        int requestNumberValue = Integer.valueOf(requestNumber);
-//                                        int pushNumber = requestNumberValue - 1;
+//                                    String requestNumber = dataSnapshot.getValue().toString();
+//                                    Log.d("decrease", "inside requestAdapter");
+//
+//                                    if (requestNumber.equals("1")) {
+//                                        Log.d("decrease", "request inside if condition: " + requestNumber);
+//                                        DatabaseReference requestStatusReference;
+//                                        requestStatusReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
+//                                        requestStatusReference.setValue(false);
+//                                    }
+//
+//                                    int requestNumberValue = Integer.valueOf(requestNumber);
+//                                    int pushNumber = requestNumberValue - 1;
+//
+//                                    if (count[0] == 0) {
 //                                        checkRequestNumber[0] = String.valueOf(pushNumber);
+//                                        DatabaseReference requestNumberReference;
+//                                        requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("temp");
 //                                        requestNumberReference.setValue(checkRequestNumber[0]);
+//                                    }
 //
-//                                        counterCheck[0] = "done";
-//                                    //}
+//                                    Log.d("decrease", "check string" + checkRequestNumber[0]);
+//                                    Log.d("decrease", "count value" + count[0]);
+//
+//                                    count[0]++;
+//                                    //stopListening();
 //                                }
-//                                removeUserReference.child(currentUser.getUid()).removeValue();
-//                                //requestStatusReference.child("requests").child(currentUser.getUid()).setValue(null);
+//                                processDone = false;
 //                            }
 //                            @Override
 //                            public void onCancelled(@NonNull DatabaseError databaseError) {
 //
 //                            }
 //                        });
-
-
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String requestNumber = dataSnapshot.child("requestNumber").getValue().toString();
-                                String checkStatus = dataSnapshot.child(currentUser.getUid()).child("requestStatus").getValue().toString();
-
-                                requestStatusReference =  FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
-                                requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-                                //removeUserReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("requestNumber");
-
-                                if(requestNumber.equals("1") && checkStatus.equals("true"))
-                                {
-                                    requestStatusReference.setValue(false);
-                                }
-
-
-                                int requestNumberValue = Integer.valueOf(requestNumber);
-                                int pushNumber = requestNumberValue - 1;
-                                checkRequestNumber[0] = String.valueOf(pushNumber);
-
-                                //requestNumberReference.child("temp").setValue(checkRequestNumber[0]);
-
-                                requestNumberReference.child("requestNumber").removeValue();
-
-
-//                                removeUserReference.child(currentUser.getUid()).removeValue();
-                                //requestStatusReference.child("requests").child(currentUser.getUid()).setValue(null);
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-                        anotherDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-                        anotherDatabaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                //String tempRequestValue = dataSnapshot.child("temp").getValue().toString();
-
-                                tempdatabaseReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-                                tempdatabaseReference.child("requestNumber").setValue(checkRequestNumber[0]);
-
-                                //tempdatabaseReference.child("temp").removeValue();
-                                //tempdatabaseReference.child("temp").removeValue();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-//                        removeUserReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("temp");
-//                        removeUserReference.removeValue();
-
                     }
                 });
 

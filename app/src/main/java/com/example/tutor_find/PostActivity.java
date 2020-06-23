@@ -236,6 +236,7 @@ public class PostActivity extends AppCompatActivity {
 
             newPost.child(userId).child("acceptStatus").setValue(false);
             newPost.child(userId).child("requestStatus").setValue(false);
+            newPost.child(userId).child("hasRequest").setValue(false);
             newPost.child(userId).child(userId).setValue(true);
 
             //database change
