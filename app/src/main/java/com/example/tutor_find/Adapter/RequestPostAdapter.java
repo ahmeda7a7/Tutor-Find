@@ -55,7 +55,7 @@ public class RequestPostAdapter extends FirebaseRecyclerAdapter<Post, RequestPos
                 else
                 {
                     holder.postDecision.setText("Pending");
-                    holder.postDecision.setTextColor(Color.parseColor("#D81B60"));
+                    holder.postDecision.setTextColor(Color.parseColor("#2196F3"));
 
                 }
             }

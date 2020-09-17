@@ -202,7 +202,7 @@ public class TeacherRegActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.backButton)
         {
-            startActivity(new Intent(TeacherRegActivity.this, RegisterActivity.class));
+            startActivity(new Intent(TeacherRegActivity.this, StartActivity.class));
             finish();
         }
 

@@ -70,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        // old part
         viewPagerAdapter.addFragment(new AllPostActivity(),"Home");
         viewPagerAdapter.addFragment(new MyPostActivity(), "My Posts");
         viewPagerAdapter.addFragment(new RequestPostActivity(), "Requests");
         viewPagerAdapter.addFragment(new AppliedPostActivity(), "Applied");
-
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
