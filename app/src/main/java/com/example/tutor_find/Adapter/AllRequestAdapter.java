@@ -76,7 +76,7 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                 else
                 {
                     holder.userStatus.setText("pending");
-                    holder.userStatus.setTextColor(Color.parseColor("#D81B60"));
+                    holder.userStatus.setTextColor(Color.parseColor("#2196F3"));
 
                 }
             }
