@@ -8,4 +8,5 @@
     <color name="BlackColor">#000000</color>
     <color name="PendingColor">#FFEB3B</color>
     <color name="buttonColorRed">#F44336</color>
+    <color name="fragmentBackground">#94D7FF</color>
 </resources>

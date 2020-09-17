@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -90,7 +92,7 @@ public class ConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm);
 
         getSupportActionBar().setTitle("Confirm Tuition");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -221,6 +223,24 @@ public class ConfirmActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(ConfirmActivity.this, MainActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

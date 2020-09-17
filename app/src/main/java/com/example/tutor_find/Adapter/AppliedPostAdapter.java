@@ -1,16 +1,19 @@
 package com.example.tutor_find.Adapter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tutor_find.Model.Post;
+import com.example.tutor_find.PostUserActivity;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -59,6 +62,22 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
                 {
                     holder.postDecision.setText("Accepted");
                     holder.postDecision.setTextColor(Color.parseColor("#008577"));
+                    holder.postViewUser.setVisibility(View.VISIBLE);
+
+                    holder.postViewUser.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
+
+                            String user = model.getUserId();
+
+                            intent.putExtra("userId", user);
+
+                            holder.postViewUser.getContext().startActivity(intent);
+
+                        }
+                    });
                 }
                 else
                 {
@@ -94,6 +113,7 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
         TextView postArea;
         TextView postAddress;
         TextView postDecision;
+        Button postViewUser;
 
         public AppliedPostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,6 +127,7 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
             postArea = itemView.findViewById(R.id.postArea);
             postAddress = itemView.findViewById(R.id.postAddress);
             postDecision = itemView.findViewById(R.id.postDecision);
+            postViewUser = itemView.findViewById(R.id.postUser);
 
         }
     }

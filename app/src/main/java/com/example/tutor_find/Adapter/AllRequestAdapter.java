@@ -1,6 +1,7 @@
 package com.example.tutor_find.Adapter;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tutor_find.MainActivity;
 import com.example.tutor_find.Model.UserInfo;
 import com.example.tutor_find.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -212,6 +214,9 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
                                     requestStatusReference.removeValue();
                                     requestStatusReference.setValue(false);
 
+                                    holder.rejectButton.getContext().startActivity(new Intent(holder.rejectButton.getContext(), MainActivity.class));
+
+
 
                                 }
 
@@ -222,54 +227,6 @@ public class AllRequestAdapter extends FirebaseRecyclerAdapter<UserInfo, AllRequ
 
                             }
                         });
-
-
-//                        final String[] checkRequestNumber = {""};
-//
-//                        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//                        final int[] count = {0};
-//
-//                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            boolean processDone = true;
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                                if (processDone) {
-//
-//                                    String requestNumber = dataSnapshot.getValue().toString();
-//                                    Log.d("decrease", "inside requestAdapter");
-//
-//                                    if (requestNumber.equals("1")) {
-//                                        Log.d("decrease", "request inside if condition: " + requestNumber);
-//                                        DatabaseReference requestStatusReference;
-//                                        requestStatusReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child(currentUser.getUid()).child("requestStatus");
-//                                        requestStatusReference.setValue(false);
-//                                    }
-//
-//                                    int requestNumberValue = Integer.valueOf(requestNumber);
-//                                    int pushNumber = requestNumberValue - 1;
-//
-//                                    if (count[0] == 0) {
-//                                        checkRequestNumber[0] = String.valueOf(pushNumber);
-//                                        DatabaseReference requestNumberReference;
-//                                        requestNumberReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("temp");
-//                                        requestNumberReference.setValue(checkRequestNumber[0]);
-//                                    }
-//
-//                                    Log.d("decrease", "check string" + checkRequestNumber[0]);
-//                                    Log.d("decrease", "count value" + count[0]);
-//
-//                                    count[0]++;
-//                                    //stopListening();
-//                                }
-//                                processDone = false;
-//                            }
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
                     }
                 });
 

@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.Sampler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,26 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AllRequestActivity extends AppCompatActivity {
 
-
-//    TextView postGroup;
-//    TextView postCurriculum;
-//    TextView postStudyClass;
-//    TextView postSubjectList;
-//    TextView postSalary;
-//    TextView postDescription;
-//    TextView postArea;
-//    TextView postAddress;
-//
-//
-//    String group;
-//    String curriculum;
-//    String studyClass;
-//    String subjectList;
-//    String salary;
-//    String description;
-//    String area;
-//    String address;
-
     String userId;
     String postId;
 
@@ -60,6 +43,9 @@ public class AllRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_request);
+
+        getSupportActionBar().setTitle("Tutor Info");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         postId = getIntent().getExtras().getString("postId");
 
@@ -102,5 +88,23 @@ public class AllRequestActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.backmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.backButton)
+        {
+            startActivity(new Intent(AllRequestActivity.this, MainActivity.class));
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

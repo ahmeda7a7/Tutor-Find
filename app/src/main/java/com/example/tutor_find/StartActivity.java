@@ -23,11 +23,19 @@ public class StartActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if(firebaseUser != null)
         {
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
-            finish();
+            if(firebaseUser.isEmailVerified())
+            {
+                startActivity(new Intent(StartActivity.this, MainActivity.class));
+                finish();
+            }
+            else
+            {
+                Toast.makeText(StartActivity.this, "Please Verify Your Email.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                finish();
+            }
         }
     }
 

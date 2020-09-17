@@ -92,6 +92,8 @@
             android:padding="15dp"
             android:text="Apply"
             android:textSize="18dp"
+            android:background="@drawable/button_round_edge"
+            android:textColor="@color/WhiteColor"
             />
 
     </LinearLayout>

@@ -103,6 +103,9 @@
             android:padding="15dp"
             android:text="Delete"
             android:textSize="18dp"
+            android:background="@drawable/button_round_red"
+            android:textColor="@color/WhiteColor"
+
             />
 
         <Button
@@ -114,6 +117,8 @@
             android:padding="15dp"
             android:text="Edit"
             android:textSize="18dp"
+            android:background="@drawable/button_round_edge"
+            android:textColor="@color/WhiteColor"
             />
     </RelativeLayout>
 

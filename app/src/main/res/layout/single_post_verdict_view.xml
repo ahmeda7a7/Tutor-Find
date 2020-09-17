@@ -95,6 +95,16 @@
             android:text="Decision"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:id="@+id/postUser"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:background="@drawable/button_round_edge"
+            android:textColor="@color/WhiteColor"
+            />
 
     </LinearLayout>
 

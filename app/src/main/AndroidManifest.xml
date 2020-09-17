@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AllRequestActivity"></activity>
+        <activity android:name=".PostUserActivity"></activity>
+        <activity android:name=".AllRequestActivity" />
         <activity android:name=".PostEditActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
@@ -22,10 +23,8 @@
         <activity android:name=".StudentRegActivity" />
         <activity android:name=".TeacherRegActivity" />
         <activity android:name=".PostActivity" />
-        <activity
-            android:name=".LoginActivity"/>
-        <activity
-            android:name=".RegisterActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".MainActivity" />
 
