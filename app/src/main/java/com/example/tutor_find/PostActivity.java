@@ -84,9 +84,6 @@ public class PostActivity extends AppCompatActivity {
         listItems = getResources().getStringArray(R.array.subjects);
         checkedItems = new boolean[listItems.length];
 
-
-
-
         subjectListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

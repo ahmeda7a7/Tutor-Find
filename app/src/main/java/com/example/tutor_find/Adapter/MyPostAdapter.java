@@ -56,6 +56,18 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
 
                 intent.putExtra("postId", postId);
 
+                intent.putExtra("group", model.getGroup());
+                intent.putExtra("curriculum", model.getCurriculum());
+                intent.putExtra("studyClass", model.getStudyClass());
+                intent.putExtra("subjectList", model.getSubjectList());
+                intent.putExtra("salary", model.getSalary());
+                intent.putExtra("description", model.getDescription());
+                intent.putExtra("area", model.getArea());
+                intent.putExtra("address", model.getAddress());
+                intent.putExtra("userId", model.getUserId());
+
+
+
                 holder.editButton.getContext().startActivity(intent);
 
             }

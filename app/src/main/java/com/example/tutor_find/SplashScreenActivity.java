@@ -25,11 +25,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     
     private class LogoLauncher extends Thread{
         public void run(){
-//            try{
-//                sleep(3000);
-//            }catch (InterruptedException e){
-//                e.printStackTrace();
-//            }
+            try{
+                sleep(3000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
             
             Intent intent = new Intent(SplashScreenActivity.this, StartActivity.class);
             startActivity(intent);
