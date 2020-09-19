@@ -77,7 +77,7 @@ public class PostEditActivity extends AppCompatActivity {
 
         System.out.println(getIntent().getExtras().getString("subjectList"));
 
-        // subjectListButton.setText(getIntent().getExtras().getString("subjectList"));
+        subjectListButton.setText(getIntent().getExtras().getString("subjectList"));
 
         setGroupSpinner();
         setCurriculumSpinner();
@@ -222,6 +222,7 @@ public class PostEditActivity extends AppCompatActivity {
                         temporary.child("area").setValue(areaTypeValue);
                         temporary.child("address").setValue(addressText);
                         temporary.child("postId").setValue(postId);
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -246,7 +247,7 @@ public class PostEditActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.backButton)
         {
-            startActivity(new Intent(PostEditActivity.this, MainActivity.class));
+            startActivity(new Intent(PostEditActivity.this, MyPostActivity.class));
             finish();
         }
 

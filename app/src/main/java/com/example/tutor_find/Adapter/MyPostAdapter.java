@@ -89,8 +89,8 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-//                        deletePost = FirebaseDatabase.getInstance().getReference().child("Posts").child(model.getPostId());
-//                        deletePost.removeValue();
+                        deletePost = FirebaseDatabase.getInstance().getReference().child("Posts").child(model.getPostId());
+                        deletePost.removeValue();
 
                         Toast.makeText(holder.deleteButton.getContext(), "Post Deleted", Toast.LENGTH_SHORT).show();
 
