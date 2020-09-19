@@ -46,6 +46,7 @@ public class MyPostAdapter extends FirebaseRecyclerAdapter<Post, MyPostAdapter.M
         holder.postArea.setText("Area: " + model.getArea());
         holder.postAddress.setText("Address: " + model.getAddress());
 
+        holder.editButton.setVisibility(View.GONE);
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

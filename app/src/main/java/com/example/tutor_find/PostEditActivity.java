@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.tutor_find.Fragments.MyPostActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,12 +199,13 @@ public class PostEditActivity extends AppCompatActivity {
 //                alertDialog.show();
 //            }
 //        });
+        Log.d("error", subjectListButton.getText().toString() + " testing");
 
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        Log.d("error", databaseReference.toString() + " testing");
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                databaseReference= FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -212,6 +216,8 @@ public class PostEditActivity extends AppCompatActivity {
                         String salaryText = salary.getText().toString().trim();
                         String addressText = address.getText().toString().trim();
                         String descriptionText = description.getText().toString().trim();
+
+                        Log.d("error", salaryText + " " + descriptionText);
 
                         temporary.child("group").setValue(groupTypeValue);
                         temporary.child("curriculum").setValue(curriculumTypeValue);
@@ -229,6 +235,8 @@ public class PostEditActivity extends AppCompatActivity {
 
                     }
                 });
+                Toast.makeText(PostEditActivity.this, "Updating Successful", Toast.LENGTH_SHORT).show();
+
                 startActivity(new Intent(PostEditActivity.this, MyPostActivity.class));
                 finish();
             }
