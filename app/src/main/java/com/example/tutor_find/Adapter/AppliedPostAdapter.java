@@ -3,6 +3,7 @@ package com.example.tutor_find.Adapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,21 +49,6 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
 
         userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
-        holder.postViewUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
-
-                String user = model.getUserId();
-
-                intent.putExtra("userId", user);
-
-                holder.postViewUser.getContext().startActivity(intent);
-
-            }
-        });
-
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -77,22 +63,22 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
                 {
                     holder.postDecision.setText("Accepted");
                     holder.postDecision.setTextColor(Color.parseColor("#008577"));
-                    holder.postViewUser.setVisibility(View.VISIBLE);
+                    holder.postViewUser.setVisibility(View.GONE);
 
-//                    holder.postViewUser.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
-//
-//                            String user = model.getUserId();
-//
-//                            intent.putExtra("userId", user);
-//
-//                            holder.postViewUser.getContext().startActivity(intent);
-//
-//                        }
-//                    });
+                    holder.postViewUser.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
+
+                            String user = model.getUserId();
+
+                            intent.putExtra("userId", user);
+
+                            Log.d("error", "user id working: "+user);
+                            holder.postViewUser.getContext().startActivity(intent);
+                        }
+                    });
                 }
                 else
                 {
