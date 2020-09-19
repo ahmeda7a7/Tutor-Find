@@ -48,6 +48,21 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
 
         userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
+        holder.postViewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
+
+                String user = model.getUserId();
+
+                intent.putExtra("userId", user);
+
+                holder.postViewUser.getContext().startActivity(intent);
+
+            }
+        });
+
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,20 +79,20 @@ public class AppliedPostAdapter extends FirebaseRecyclerAdapter<Post, AppliedPos
                     holder.postDecision.setTextColor(Color.parseColor("#008577"));
                     holder.postViewUser.setVisibility(View.VISIBLE);
 
-                    holder.postViewUser.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
-
-                            String user = model.getUserId();
-
-                            intent.putExtra("userId", user);
-
-                            holder.postViewUser.getContext().startActivity(intent);
-
-                        }
-                    });
+//                    holder.postViewUser.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Intent intent = new Intent(holder.postViewUser.getContext(), PostUserActivity.class);
+//
+//                            String user = model.getUserId();
+//
+//                            intent.putExtra("userId", user);
+//
+//                            holder.postViewUser.getContext().startActivity(intent);
+//
+//                        }
+//                    });
                 }
                 else
                 {

@@ -92,6 +92,9 @@
             android:layout_below="@id/userNumber"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:background="@drawable/button_accept"
+            android:textColor="@color/WhiteColor"
+
             />
 
         <Button
@@ -101,7 +104,10 @@
             android:id="@+id/rejectButton"
             android:padding="15dp"
             android:textSize="18dp"
-            android:layout_below="@+id/userNumber"/>
+            android:layout_below="@+id/userNumber"
+            android:background="@drawable/button_round_red"
+            android:textColor="@color/WhiteColor"
+            />
 
     </RelativeLayout>
 
